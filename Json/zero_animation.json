@@ -1,0 +1,24 @@
+{
+  "IDLE": {
+	"NONE": [{ "name": "idle", "loopFrame": 0 }]
+  },
+  "WALK": {
+	"NONE": [{ "name": "walk", "loopFrame": 1 }]
+  },
+  "JUMP": {
+	"NONE": [{ "name": "jump", "loopFrame": 2 }]
+  },
+  "FALL": {
+	"NONE": [{ "name": "fall", "loopFrame": 2 }]
+  },
+  "LAND": {
+	"NONE": [{ "name": "land", "loopFrame": 0 }]
+  },
+  "DASH": {
+	"NONE": [
+	  { "name": "dash_init", "loopFrame": 0 },
+	  { "name": "dash", "loopFrame": 0 },
+	  { "name": "dash_end", "loopFrame": 0 }
+	]
+  }
+}

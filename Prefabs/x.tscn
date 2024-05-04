@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://cw0358iq6ednr"]
+
+[ext_resource type="Script" path="res://Scripts/Player/Zero.cs" id="1_0afsl"]
+[ext_resource type="SpriteFrames" uid="uid://cten2hbmv41pd" path="res://Assets/Sprites/zero_spriteframes.tres" id="2_nkqyj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qqfjj"]
+size = Vector2(24, 38)
+
+[node name="X" type="CharacterBody2D" node_paths=PackedStringArray("AS")]
+z_index = 10
+collision_mask = 2
+floor_constant_speed = true
+floor_max_angle = 1.39626
+floor_snap_length = 3.0
+script = ExtResource("1_0afsl")
+AS = NodePath("Sprite")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 3)
+sprite_frames = ExtResource("2_nkqyj")
+animation = &"idle"
+autoplay = "idle"
+offset = Vector2(0, -34)
+
+[node name="HurtBox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -19)
+shape = SubResource("RectangleShape2D_qqfjj")

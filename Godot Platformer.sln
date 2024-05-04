@@ -1,0 +1,19 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Godot Platformer", "Godot Platformer.csproj", "{AA55AC3E-DDF4-482B-9D86-B674B7D44886}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA55AC3E-DDF4-482B-9D86-B674B7D44886}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA55AC3E-DDF4-482B-9D86-B674B7D44886}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA55AC3E-DDF4-482B-9D86-B674B7D44886}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{AA55AC3E-DDF4-482B-9D86-B674B7D44886}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{AA55AC3E-DDF4-482B-9D86-B674B7D44886}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{AA55AC3E-DDF4-482B-9D86-B674B7D44886}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal
