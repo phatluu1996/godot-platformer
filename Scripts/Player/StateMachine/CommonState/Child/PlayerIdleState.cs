@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Godot;
 
 public class PlayerIdleState : PlayerGroundedState
 {
@@ -26,16 +27,14 @@ public class PlayerIdleState : PlayerGroundedState
         {
             FSM.SetNextState(EPlayerState.JUMP);
         }
-        else if (Input.Dash.Pressed)
+        else if (Input.Dash.Pressed && !Player.RaycastController.Collisions.Right && !Player.RaycastController.Collisions.Left)
         {
             FSM.SetNextState(EPlayerState.DASH);
         }
-        else if (Input.xHAxis != 0)
+        else if (Input.xHAxis != 0 && !Player.RaycastController.Collisions.Right && !Player.RaycastController.Collisions.Left)
         {
             FSM.SetNextState(EPlayerState.WALK);
         }
-
-
     }
 
     public override void Exit()
@@ -55,5 +54,13 @@ public class PlayerIdleState : PlayerGroundedState
         {
             FSM.SetNextState(EPlayerState.IDLE);
         }
+    }
+
+    public override string TransitedAnimation()
+    {
+        if(Player.Energy < Player.EnergyLimit/3){
+            return Animation[EPlayerWeapon.NONE][1].name;
+        }
+        return Animation[EPlayerWeapon.NONE][0].name;
     }
 }

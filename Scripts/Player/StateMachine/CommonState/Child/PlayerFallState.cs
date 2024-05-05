@@ -16,7 +16,9 @@ public class PlayerFallState : PlayerAirBornState
         base.Update();
         float movingSpeed = Player.OnMomentum ? Constants.MOMENTUM_SPEED : Constants.WALK_SPEED;
         Player.velocity.X = Input.xHAxis * movingSpeed;
-        if(Player.IsOnFloor()){            
+        if(Input.xHAxis != 0 && (Player.IsOnWall() || Player.RaycastController.Collisions.Right || Player.RaycastController.Collisions.Left)){
+            FSM.SetNextState(EPlayerState.WALLCLING);
+        }else if(Player.IsOnFloor()){            
             FSM.SetNextState(Input.xHAxis != 0 ? EPlayerState.WALK : EPlayerState.LAND);
         }
     }

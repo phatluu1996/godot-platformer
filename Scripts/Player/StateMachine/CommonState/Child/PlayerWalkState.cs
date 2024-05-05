@@ -29,12 +29,12 @@ public class PlayerWalkState : PlayerGroundedState
         {
             FSM.SetNextState(EPlayerState.JUMP);
         }
-        else if (Input.Dash.Pressed)
+        else if (Input.Dash.Pressed && !Player.IsOnWall())
         {
             FSM.SetNextState(EPlayerState.DASH);
         }
-        else if (Input.xHAxis == 0)
-        {
+        else if (Input.xHAxis == 0 || Player.IsOnWall())
+        {            
             FSM.SetNextState(EPlayerState.IDLE);
         }
     }

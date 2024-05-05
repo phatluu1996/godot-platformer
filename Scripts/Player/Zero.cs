@@ -26,8 +26,8 @@ public partial class Zero : Player
         base.SetupAnimation();
 	}
 
-    public override void AnimationTransition(Dictionary<EPlayerWeapon, List<PlayerAnimation>> thisStateAnimation)
+    public override void OnAnimationTransited(PlayerState thisState)
     {
-        base.AnimationTransition(thisStateAnimation);
+        base.OnAnimationTransited(thisState);
     }
 }

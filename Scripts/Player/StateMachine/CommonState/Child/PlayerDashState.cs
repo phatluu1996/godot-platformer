@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Numerics;
 using Godot;
 
 public class PlayerDashState : PlayerGroundedState
@@ -16,13 +17,15 @@ public class PlayerDashState : PlayerGroundedState
         initDash = true;
         endDashSoon = false;
         Player.velocity.X = Player.Facing * Constants.PREDASH_SPEED;
+        Player.CollisionBox.Size = Constants.DASH_BOX_SIZE;
+        Player.CS.Position = Constants.DASH_BOX_OFFSET;
     }
 
     public override void Update()
     {
         base.Update();
 
-        Timer += (float)Player.GetProcessDeltaTime();
+        Timer += Player.GetProcessDeltaTime();
 
         if (Timer >= Constants.DASH_TIME || Input.Dash.Released)
         {
@@ -71,6 +74,8 @@ public class PlayerDashState : PlayerGroundedState
         {
             Player.OnMomentum = Input.Dash.Held;
             FSM.SetNextState(EPlayerState.JUMP);
+        }else if(Player.IsOnWall()){
+            FSM.SetNextState(EPlayerState.IDLE);
         }
     }
 
@@ -78,6 +83,8 @@ public class PlayerDashState : PlayerGroundedState
     {
         base.Exit();
         initDash = false;
+        Player.CollisionBox.Size = Constants.STAND_BOX_SIZE;
+        Player.CS.Position = Constants.STAND_BOX_OFFSET;
     }
 
     public override void OnFrameChangedEvent(int frame)

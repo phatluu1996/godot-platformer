@@ -5,8 +5,8 @@ using Godot;
 public abstract class BaseStateMachine<EnumState> where EnumState : Enum
 {
     protected Dictionary<EnumState, BaseState<EnumState>> States = new Dictionary<EnumState, BaseState<EnumState>>();
-    protected BaseState<EnumState> CurrentState;
-    protected BaseState<EnumState> LastState;
+    public BaseState<EnumState> CurrentState;
+    public BaseState<EnumState> LastState;
     public EnumState NextStateKey {get; private set;}  
 
     protected bool IsStateTransactioning;
@@ -35,13 +35,12 @@ public abstract class BaseStateMachine<EnumState> where EnumState : Enum
         States.Add(stateKey, state);
     }
 
-    public virtual void TransitionToState(EnumState nextStateKey, Action<BaseState<EnumState>> action = null){
+    public virtual void TransitionToState(EnumState nextStateKey){
         IsStateTransactioning = true;
         LastState = CurrentState;
         CurrentState = States[nextStateKey];
         LastState.Exit();
         CurrentState.Enter();
-        action?.Invoke(CurrentState);
         IsStateTransactioning = false;
     }
 

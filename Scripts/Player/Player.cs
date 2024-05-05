@@ -1,47 +1,76 @@
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 using Godot;
 
 public partial class Player : CharacterBody2D, IDamageable
 {
+	public PlayerRaycastController RaycastController;
 	public PlayerAnimationController AnimationController;
 	public PlayerStateMachine FSM;
 	public InputSystem Input;
 	public Vector2 velocity;
 	[Export]
-	public AnimatedSprite2D AS { get; set; }
+	public AnimatedSprite2D AS;
+	[Export]
+	public CollisionShape2D CS;
 	public float Facing;
 	public bool IsAttacking;
 
 	public bool OnMomentum;
 	public EPlayerWeapon EquippedWeaponType;
+    public int Energy;
+	public int EnergyLimit;
 
-	public override void _Ready()
+    public override void _Ready()
 	{
+		Facing = 1f;
+		EnergyLimit = 16;
+		Energy = EnergyLimit;
+
 		Input = new InputSystem();
+
 		SetupAnimation();
 		FSM = new PlayerStateMachine(this);
-		FSM.AddState(EPlayerState.IDLE, new PlayerIdleState(this, FSM, AnimationController.GetState(EPlayerState.IDLE)));		
-		FSM.AddState(EPlayerState.WALK, new PlayerWalkState(this, FSM, AnimationController.GetState(EPlayerState.WALK)){Speed = Constants.WALK_SPEED});
+		FSM.AddState(EPlayerState.IDLE, new PlayerIdleState(this, FSM, AnimationController.GetState(EPlayerState.IDLE)));
+		FSM.AddState(EPlayerState.WALK, new PlayerWalkState(this, FSM, AnimationController.GetState(EPlayerState.WALK)) { Speed = Constants.WALK_SPEED });
 		FSM.AddState(EPlayerState.JUMP, new PlayerJumpState(this, FSM, AnimationController.GetState(EPlayerState.JUMP)));
 		FSM.AddState(EPlayerState.FALL, new PlayerFallState(this, FSM, AnimationController.GetState(EPlayerState.FALL)));
 		FSM.AddState(EPlayerState.LAND, new PlayerIdleState(this, FSM, AnimationController.GetState(EPlayerState.LAND)));
 		FSM.AddState(EPlayerState.DASH, new PlayerDashState(this, FSM, AnimationController.GetState(EPlayerState.DASH)));
+		FSM.AddState(EPlayerState.WALLCLING, new PlayerWallClingState(this, FSM, AnimationController.GetState(EPlayerState.WALLCLING)));
+		FSM.AddState(EPlayerState.WALLJUMP, new PlayerWallJumpState(this, FSM, AnimationController.GetState(EPlayerState.WALLJUMP)));
+		FSM.AddState(EPlayerState.HURT, new PlayerHurtState(this, FSM, AnimationController.GetState(EPlayerState.HURT)));
 		FSM.Start(EPlayerState.IDLE);
+
+		RaycastController = new PlayerRaycastController(this);
 		
-		Facing = 1f;
+		// ray.GetCollisionPoint()
+		// ray.Di
+	}
+
+	public void RaycastInit(){
+		
 	}
 
 	public override void _Process(double delta)
 	{
 		base._Process(delta);
+
 		velocity = Velocity;
+
+		RaycastController.Update();
+
 		FSM.Update();
+
+		if(Godot.Input.IsActionJustPressed("ui_select")){
+			FSM.SetNextState(EPlayerState.HURT);
+		}
+
 		Velocity = velocity;
+
 		MoveAndSlide();
 	}
 
-	
+
 	public override void _PhysicsProcess(double delta)
 	{
 
@@ -68,18 +97,31 @@ public partial class Player : CharacterBody2D, IDamageable
 
 	}
 
-	public virtual void SetupAnimation()
+	public RectangleShape2D CollisionBox => CS.Shape as RectangleShape2D;
+
+    public virtual void SetupAnimation()
 	{
-		AnimationController = new PlayerAnimationController(AS);		
+		AnimationController = new PlayerAnimationController(AS);
 		PlayerAnimationInitializer.LoadAnimations(AnimationController);
 		AS.AnimationChanged += () => OnAnimationChanged(AS.Animation);
 		AS.FrameChanged += () => OnFrameChangedEvent(AS.Frame);
 		AS.AnimationFinished += () => OnAnimationFinished(AS.Animation);
-		AS.AnimationLooped += () => OnAnimationLooped(AS.Animation);		
+		AS.AnimationLooped += () => OnAnimationLooped(AS.Animation);
 	}
 
-	public void GravityForceApply(){
+	public void FlipH(){
+		Facing *= -1f;
+		AS.FlipH = Facing < 0;
+	}
+
+	public void GravityForceApply()
+	{
 		velocity.Y = Mathf.Clamp(velocity.Y + Constants.GRAVITY * (float)GetProcessDeltaTime(), -Constants.JUMP_FORCE, Constants.JUMP_FORCE);
+	}
+
+	public void GravityForceApply(float min, float max)
+	{
+		velocity.Y = Mathf.Clamp(velocity.Y + Constants.GRAVITY * (float)GetProcessDeltaTime(), min, max);
 	}
 
 	public void Damage(int damage)
@@ -87,8 +129,8 @@ public partial class Player : CharacterBody2D, IDamageable
 
 	}
 
-	public virtual void OnAnimationChanged(string animationName){
-		// GD.Print("Play " + animationName);
+	public virtual void OnAnimationChanged(string animationName)
+	{
 	}
 
 	public virtual void OnFrameChangedEvent(int frame)
@@ -96,20 +138,22 @@ public partial class Player : CharacterBody2D, IDamageable
 		FSM.OnFrameChangedEvent(frame);
 	}
 
-	public virtual void OnAnimationFinished(string animationName){
+	public virtual void OnAnimationFinished(string animationName)
+	{
 		FSM.OnAnimationFinished(animationName);
 	}
 
-	public virtual void OnAnimationLooped(string animationName){
+	public virtual void OnAnimationLooped(string animationName)
+	{
 		int loopFrame = AnimationController.AllAnimations[animationName].loopFrame;
-		if(loopFrame != 0){
-			AS.SetFrameAndProgress(loopFrame, 0);			
+		if (loopFrame != 0)
+		{
+			AS.SetFrameAndProgress(loopFrame, 0);
 		}
-		// GD.Print("Loop " + animationName);
 		FSM.OnAnimationLooped(animationName);
-	}	
+	}
 
-	public virtual void AnimationTransition(Dictionary<EPlayerWeapon, List<PlayerAnimation>> thisStateAnimation)
+	public virtual void OnAnimationTransited(PlayerState thisState)
 	{
 		if (!IsAttacking)
 		{
@@ -120,14 +164,21 @@ public partial class Player : CharacterBody2D, IDamageable
 			// 	frame = AS.Frame;
 			// 	frameProgress = AS.FrameProgress;
 			// }
-			PlayAnimation(thisStateAnimation[EPlayerWeapon.NONE][0].name, 0, 0);
+			PlayAnimation(thisState.TransitedAnimation(), 0, 0);
 		}
 	}
 
-	public virtual void PlayAnimation(string name, int frame = 0, int frameProgress = 0){		
+	public virtual void PlayAnimation(string name, int frame = 0, int frameProgress = 0)
+	{
 		AS.Play(name);
 		AS.SetFrameAndProgress(frame, frameProgress);
 	}
 
-	
+	public override void _Draw()
+	{
+		base._Draw();
+		RectangleShape2D rect = CS.Shape as RectangleShape2D;
+
+		Debug.DrawRect(this, CS.Position, rect.Size, ColorUtil.rgba(1, 0, 0, 0.5f), true);
+	}
 }

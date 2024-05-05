@@ -10,7 +10,7 @@ public class PlayerState : BaseState<EPlayerState>
     public PlayerStateMachine FSM;
     public InputSystem Input;
     public Dictionary<EPlayerWeapon, List<PlayerAnimation>> Animation;
-    public float Timer;
+    public double Timer;
 
     public PlayerState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, List<PlayerAnimation>> animation)
     {
@@ -25,8 +25,13 @@ public class PlayerState : BaseState<EPlayerState>
         Timer = 0;
         if (Animation != null)
         {
-            Player.AnimationTransition(Animation);
+            Player.OnAnimationTransited(this);
         }
+    }
+
+    public override void Update()
+    {
+        
     }
 
     public override void Exit()
@@ -36,19 +41,19 @@ public class PlayerState : BaseState<EPlayerState>
 
     public override void OnFrameChangedEvent(int frame)
     {
-        // GD.Print(frame);
+        
     }
 
     public override void OnAnimationFinished(string animationName)
     {
-        // GD.Print(animationName);
+        
     }
     public override void OnAnimationLooped(string animationName)
     {
-        // GD.Print(animationName);
+        
     }
-    public override void Update()
-    {
 
+    public override string TransitedAnimation(){        
+        return Animation[EPlayerWeapon.NONE][0].name;
     }
 }
