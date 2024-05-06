@@ -2,9 +2,6 @@ using System.Collections.Generic;
 using Godot;
 using Newtonsoft.Json;
 using System.IO;
-using System;
-using Newtonsoft.Json.Converters;
-using System.Linq;
 
 public class PlayerAnimationInitializer
 {

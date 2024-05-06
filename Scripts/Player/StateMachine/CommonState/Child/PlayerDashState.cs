@@ -74,7 +74,9 @@ public class PlayerDashState : PlayerGroundedState
         {
             Player.OnMomentum = Input.Dash.Held;
             FSM.SetNextState(EPlayerState.JUMP);
-        }else if(Player.IsOnWall()){
+        }
+        else if (Player.IsOnWall())
+        {
             FSM.SetNextState(EPlayerState.IDLE);
         }
     }

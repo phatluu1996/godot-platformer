@@ -154,7 +154,6 @@ public class PlayerRaycastController
             {
                 Collisions.Left = Player.Facing == -1;
                 Collisions.Right = Player.Facing == 1;
-                Debug.Log($"Collided wall");
             }
         }
     }

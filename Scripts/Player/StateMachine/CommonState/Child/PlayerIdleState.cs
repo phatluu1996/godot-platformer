@@ -35,6 +35,20 @@ public class PlayerIdleState : PlayerGroundedState
         {
             FSM.SetNextState(EPlayerState.WALK);
         }
+        else if (Player.CanClimbLadder && Input.Up.Pressed)
+        {
+            if (Player.Position.Y >= Player.Ladder?.Position.Y)
+            {
+                FSM.SetNextState(EPlayerState.CLIMB);
+            }
+        }
+        else if (Player.CanClimbLadder && Input.Down.Pressed)
+        {
+            if (Player.Position.Y < Player.Ladder?.Position.Y)
+            {
+                FSM.SetNextState(EPlayerState.CLIMBDOWN);
+            }
+        }
     }
 
     public override void Exit()
@@ -58,7 +72,8 @@ public class PlayerIdleState : PlayerGroundedState
 
     public override string TransitedAnimation()
     {
-        if(Player.Energy < Player.EnergyLimit/3){
+        if (Player.Energy < Player.EnergyLimit / 3)
+        {
             return Animation[EPlayerWeapon.NONE][1].name;
         }
         return Animation[EPlayerWeapon.NONE][0].name;

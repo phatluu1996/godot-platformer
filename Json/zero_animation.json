@@ -1,6 +1,9 @@
 {
   "IDLE": {
-    "NONE": [{ "name": "idle", "loopFrame": 0 }, { "name": "tired", "loopFrame": 0 }]
+    "NONE": [
+      { "name": "idle", "loopFrame": 0 },
+      { "name": "tired", "loopFrame": 0 }
+    ]
   },
   "WALK": {
     "NONE": [{ "name": "walk", "loopFrame": 1 }]
@@ -25,9 +28,24 @@
     "NONE": [{ "name": "wallcling", "loopFrame": 2 }]
   },
   "WALLJUMP": {
-    "NONE": [{ "name": "walljump1", "loopFrame": 3 }, { "name": "walljump2", "loopFrame": 2 }]
+    "NONE": [
+      { "name": "walljump1", "loopFrame": 3 },
+      { "name": "walljump2", "loopFrame": 2 }
+    ]
   },
-  "HURT":{
-    "NONE": [{ "name": "hurt1", "loopFrame": 0 }, { "name": "hurt2", "loopFrame": 0 }]
+  "HURT": {
+    "NONE": [
+      { "name": "hurt1", "loopFrame": 0 },
+      { "name": "hurt2", "loopFrame": 0 }
+    ]
+  },
+  "CLIMB": {
+    "NONE": [{ "name": "climb", "loopFrame": 0 }]
+  },
+  "CLIMBDOWN": {
+    "NONE": [{ "name": "climbdown", "loopFrame": 0 }]
+  },
+  "CLIMBUP": {
+    "NONE": [{ "name": "climbup", "loopFrame": 0 }]
   }
 }

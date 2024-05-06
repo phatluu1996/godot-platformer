@@ -8,6 +8,7 @@ public class Constants
 	public static readonly float MAX_WALL_GRAVITY = 1.25f * Engine.MaxFps;
 	public static readonly float PREWALK_SPEED = 0.5f * Engine.MaxFps;
 	public static readonly float WALK_SPEED = 1.35f * Engine.MaxFps;
+	public static readonly float CLIMB_SPEED = 1f * Engine.MaxFps;
 	public static readonly float PREDASH_SPEED = 0.5f * Engine.MaxFps;
 	public static readonly float DASH_SPEED = 3.25f * Engine.MaxFps;
 	public static readonly float ENDDASH_SPEED = 0.5f * Engine.MaxFps;

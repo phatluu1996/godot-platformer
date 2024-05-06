@@ -34,8 +34,22 @@ public class PlayerWalkState : PlayerGroundedState
             FSM.SetNextState(EPlayerState.DASH);
         }
         else if (Input.xHAxis == 0 || Player.IsOnWall())
-        {            
+        {
             FSM.SetNextState(EPlayerState.IDLE);
+        }
+        else if (Player.CanClimbLadder && Input.Up.Pressed)
+        {
+            if (Player.Position.Y >= Player.Ladder?.Position.Y)
+            {
+                FSM.SetNextState(EPlayerState.CLIMB);
+            }
+        }
+        else if (Player.CanClimbLadder && Input.Down.Pressed)
+        {
+            if (Player.Position.Y < Player.Ladder?.Position.Y)
+            {
+                FSM.SetNextState(EPlayerState.CLIMBDOWN);
+            }
         }
     }
 

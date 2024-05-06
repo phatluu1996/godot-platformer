@@ -8,10 +8,10 @@ size = Vector2(18, 38)
 
 [node name="X" type="CharacterBody2D" node_paths=PackedStringArray("AS", "CS")]
 z_index = 10
-collision_mask = 2
+collision_mask = 6
 floor_constant_speed = true
 floor_max_angle = 1.39626
-floor_snap_length = 3.0
+floor_snap_length = 5.0
 script = ExtResource("1_0afsl")
 AS = NodePath("Sprite")
 CS = NodePath("CollisionBox")
@@ -21,7 +21,6 @@ position = Vector2(0, -19)
 sprite_frames = ExtResource("2_nkqyj")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.0311598
 offset = Vector2(0, -12)
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]

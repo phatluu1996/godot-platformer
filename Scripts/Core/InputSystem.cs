@@ -26,4 +26,6 @@ public class InputSystem
 
     public float xHAxis => Right.Held.GetHashCode() - Left.Held.GetHashCode();
     public float xPAxis => Right.Pressed.GetHashCode() - Left.Pressed.GetHashCode();
+    public float yHAxis => Down.Held.GetHashCode() - Up.Held.GetHashCode();
+    public float yPAxis => Down.Pressed.GetHashCode() - Up.Pressed.GetHashCode();
 }

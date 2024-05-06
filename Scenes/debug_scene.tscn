@@ -1,9 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://jjyvvm6w4lis"]
+[gd_scene load_steps=10 format=3 uid="uid://jjyvvm6w4lis"]
 
 [ext_resource type="PackedScene" uid="uid://cw0358iq6ednr" path="res://Prefabs/x.tscn" id="1_najru"]
+[ext_resource type="Script" path="res://Scripts/LevelObjects/Ladder.cs" id="1_wdrve"]
 [ext_resource type="TileSet" uid="uid://cpywbr86tltmp" path="res://Assets/Tilemaps/debug_tilemap.tres" id="2_saapx"]
 [ext_resource type="Script" path="res://Scripts/Core/GameManager.cs" id="3_0x3k0"]
 [ext_resource type="Script" path="res://Scripts/Core/SoundManager.cs" id="4_7nwuq"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_o6o2a"]
+load_path = "res://.godot/imported/ladder.png-5f537d44864c4992fad854ffd0476889.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i3xc5"]
+size = Vector2(16, 65)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6kfo1"]
+size = Vector2(32, 2)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_vkhjl"]
 
@@ -14,10 +24,40 @@ position = Vector2(0, -51)
 scale = Vector2(1, 0.069)
 zoom = Vector2(2, 2)
 
+[node name="Ladder" type="Area2D" parent="." node_paths=PackedStringArray("CS")]
+position = Vector2(64, -96)
+collision_layer = 4
+script = ExtResource("1_wdrve")
+CS = NodePath("LadderBody")
+
+[node name="Sprite" type="Sprite2D" parent="Ladder"]
+texture_repeat = 2
+texture = SubResource("CompressedTexture2D_o6o2a")
+offset = Vector2(0, 32)
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 64)
+
+[node name="LadderBody" type="CollisionShape2D" parent="Ladder"]
+position = Vector2(0, 31.5)
+shape = SubResource("RectangleShape2D_i3xc5")
+debug_color = Color(0.726089, 0.240959, 1, 0.42)
+
+[node name="TopLadder" type="AnimatableBody2D" parent="Ladder"]
+collision_layer = 2
+sync_to_physics = false
+
+[node name="TopLadderArea" type="CollisionShape2D" parent="Ladder/TopLadder"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_6kfo1")
+one_way_collision = true
+debug_color = Color(0.620531, 0.534241, 0, 0.42)
+
 [node name="X" parent="." instance=ExtResource("1_najru")]
+position = Vector2(26, -96)
+collision_mask = 2
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(0, 69)
+position = Vector2(0, 68)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
@@ -28,7 +68,7 @@ z_index = 5
 tile_set = ExtResource("2_saapx")
 format = 2
 layer_0/name = "collision"
-layer_0/tile_data = PackedInt32Array(262136, 0, 0, 262137, 0, 0, 262138, 0, 0, 262139, 0, 0, 262140, 0, 0, 262141, 0, 0, 262142, 0, 0, 262143, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0, 196617, 0, 0, 196618, 0, 0, 262133, 0, 0, 262134, 0, 0, 262135, 0, 0, 196597, 0, 0, 131061, 0, 0, 65525, 0, 0, -11, 0, 0, -65547, 0, 0, -131083, 0, 0, -196619, 0, 0, -262155, 0, 0, -327670, 0, 0, -262134, 0, 0, -196598, 0, 0, -131062, 0, 0, -65526, 0, 0, 10, 0, 0, 65546, 0, 0, 131082, 0, 0, 196601, 196608, 268435458, 196602, 131072, 268435458, 131067, 196608, 268435458, 196603, 0, 0, 131068, 131072, 268435458, 196604, 0, 0, 131069, 0, 0, 196605, 0, 0, 131070, 0, 0, 196606, 0, 0, 131071, 0, 0, 196607, 0, 0, 65537, 0, 0, 131073, 0, 0, 65538, 0, 0, 131074, 0, 0, 65539, 131072, 2, 131075, 0, 0, 65540, 196608, 2, 131076, 0, 0, 131077, 131072, 2, 131078, 196608, 2, 65536, 0, 0, 131072, 0, 0, -196611, 0, 0, -196610, 0, 0, -196609, 0, 0, -262144, 0, 0, -262143, 0, 0, -262142, 0, 0)
+layer_0/tile_data = PackedInt32Array(262136, 0, 0, 262137, 0, 0, 262138, 0, 0, 262139, 0, 0, 262140, 0, 0, 262141, 0, 0, 262142, 0, 0, 262143, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0, 196617, 0, 0, 196618, 0, 0, 262133, 0, 0, 262134, 0, 0, 262135, 0, 0, 196597, 0, 0, 131061, 0, 0, 65525, 0, 0, -11, 0, 0, -65547, 0, 0, -131083, 0, 0, -196619, 0, 0, -262155, 0, 0, -327670, 0, 0, -262134, 0, 0, -196598, 0, 0, -131062, 0, 0, -65526, 0, 0, 10, 0, 0, 65546, 0, 0, 131082, 0, 0, 196601, 196608, 268435458, 196602, 131072, 268435458, 131067, 196608, 268435458, 196603, 0, 0, 131068, 131072, 268435458, 196604, 0, 0, 131069, 0, 0, 196605, 0, 0, 131070, 0, 0, 196606, 0, 0, 131071, 0, 0, 196607, 0, 0, 65537, 0, 0, 131073, 0, 0, 65538, 0, 0, 131074, 0, 0, 65539, 131072, 2, 131075, 0, 0, 65540, 196608, 2, 131076, 0, 0, 131077, 131072, 2, 131078, 196608, 2, 65536, 0, 0, 131072, 0, 0, -327683, 0, 0, -327682, 0, 0, -327681, 0, 0, -393216, 0, 0, -393215, 0, 0, -393214, 0, 0, 65533, 0, 1, -2, 0, 1, 2, 0, 268435457, -65535, 0, 268435457, -1, 0, 0, -65536, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, -262147, 0, 805306369, -262148, 0, 0, -196613, 0, 0, -196614, 0, 0, -131079, 0, 0, -65544, 65536, 805306370, -65546, 0, 0, -65545, 0, 0, -327691, 0, 0, -327690, 0, 0, -327689, 0, 0, -327688, 0, 0, -327687, 0, 0, -327686, 0, 0, -327685, 0, 0, -327684, 0, 0, -262149, 0, 0, -262150, 0, 0, -262151, 0, 0, -262152, 0, 0, -262153, 0, 0, -262154, 0, 0, -196618, 0, 0, -131082, 0, 0, -131081, 0, 0, -196617, 0, 0, -196616, 0, 0, -131080, 0, 0, -196615, 0, 0, -393211, 0, 0, -393210, 0, 0, -393209, 0, 0, -393208, 0, 0, -393207, 0, 0, -393206, 0, 0, -327675, 65536, 805306369, -262138, 65536, 805306369, -196601, 65536, 805306369, -131064, 65536, 805306369, -65527, 65536, 805306369, -327674, 0, 0, -327673, 0, 0, -327672, 0, 0, -327671, 0, 0, -262135, 0, 0, -196599, 0, 0, -131063, 0, 0, -196600, 0, 0, -262136, 0, 0, -262137, 0, 0, -196612, 0, 805306369, -131077, 0, 805306370, -131078, 65536, 805306370, -65543, 0, 805306370)
 layer_1/name = "deco_0"
 layer_1/tile_data = PackedInt32Array()
 

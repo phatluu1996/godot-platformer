@@ -17,9 +17,14 @@ public class PlayerJumpState : PlayerAirBornState
         base.Update();
         float movingSpeed = Player.OnMomentum ? Constants.MOMENTUM_SPEED : Constants.WALK_SPEED;
         Player.velocity.X = Input.xHAxis * movingSpeed;
-        if(Player.velocity.Y >= 0f || !Input.Jump.Held || Player.IsOnCeilingOnly()){
+        if (Player.velocity.Y >= 0f || !Input.Jump.Held || Player.IsOnCeilingOnly())
+        {
             Player.velocity.Y = 0;
             FSM.SetNextState(EPlayerState.FALL);
+        }
+        else if (Player.CanClimbLadder && (Input.Up.Pressed || Input.Down.Pressed))
+        {
+            FSM.SetNextState(EPlayerState.CLIMB);
         }
     }
 

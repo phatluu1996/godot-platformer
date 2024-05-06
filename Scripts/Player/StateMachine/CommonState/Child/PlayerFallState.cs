@@ -16,10 +16,17 @@ public class PlayerFallState : PlayerAirBornState
         base.Update();
         float movingSpeed = Player.OnMomentum ? Constants.MOMENTUM_SPEED : Constants.WALK_SPEED;
         Player.velocity.X = Input.xHAxis * movingSpeed;
-        if(Input.xHAxis != 0 && (Player.IsOnWall() || Player.RaycastController.Collisions.Right || Player.RaycastController.Collisions.Left)){
+        if (Input.xHAxis != 0 && (Player.IsOnWall() || Player.RaycastController.Collisions.Right || Player.RaycastController.Collisions.Left))
+        {
             FSM.SetNextState(EPlayerState.WALLCLING);
-        }else if(Player.IsOnFloor()){            
+        }
+        else if (Player.IsOnFloor())
+        {
             FSM.SetNextState(Input.xHAxis != 0 ? EPlayerState.WALK : EPlayerState.LAND);
+        }
+        else if (Player.CanClimbLadder && (Input.Up.Pressed || Input.Down.Pressed))
+        {
+            FSM.SetNextState(EPlayerState.CLIMB);
         }
     }
 

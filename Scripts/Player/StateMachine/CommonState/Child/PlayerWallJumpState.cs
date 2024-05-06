@@ -10,9 +10,10 @@ public class PlayerWallJumpState : PlayerState
     {
         base.Enter();
         Player.velocity.Y = -Constants.JUMP_FORCE;
-        if(Player.OnMomentum){
+        if (Player.OnMomentum)
+        {
             Player.FlipH();
-        }        
+        }
     }
 
     public override void Update()
@@ -24,9 +25,10 @@ public class PlayerWallJumpState : PlayerState
         if (Timer <= 0.18f)
         {
             Player.velocity.X = -Player.Facing * movingSpeed;
-            if(Player.OnMomentum){
+            if (Player.OnMomentum)
+            {
                 Player.velocity.X = Player.Facing * movingSpeed;
-            }            
+            }
         }
         else
         {
@@ -43,6 +45,13 @@ public class PlayerWallJumpState : PlayerState
         {
             Player.velocity.Y = 0;
             FSM.SetNextState(EPlayerState.FALL);
+        }
+        else if (Player.CanClimbLadder && Input.Up.Pressed)
+        {
+            if (Player.Position.Y >= Player.Ladder?.Position.Y)
+            {
+                FSM.SetNextState(EPlayerState.CLIMB);
+            }
         }
     }
 
@@ -61,8 +70,9 @@ public class PlayerWallJumpState : PlayerState
         base.OnAnimationFinished(animationName);
     }
 
-    public override string TransitedAnimation(){       
-        int index = Player.OnMomentum ? 1 : 0; 
+    public override string TransitedAnimation()
+    {
+        int index = Player.OnMomentum ? 1 : 0;
         return Animation[EPlayerWeapon.NONE][index].name;
     }
 }

@@ -14,19 +14,40 @@ public partial class Player : CharacterBody2D, IDamageable
 	public CollisionShape2D CS;
 	public float Facing;
 	public bool IsAttacking;
-
+	public bool CanClimbLadder;
 	public bool OnMomentum;
+	public Node2D Ladder;
 	public EPlayerWeapon EquippedWeaponType;
-    public int Energy;
+	public int Energy;
 	public int EnergyLimit;
 
-    public override void _Ready()
+
+	public float x {
+		get => Position.X;
+		set {
+			Vector2 pos = Position;
+			pos.X = value;
+			Position = pos;
+		}
+	}
+
+	public float y {
+		get => Position.Y;
+		set {
+			Vector2 pos = Position;
+			pos.Y = value;
+			Position = pos;
+		}
+	}
+
+	public override void _Ready()
 	{
 		Facing = 1f;
 		EnergyLimit = 16;
 		Energy = EnergyLimit;
 
 		Input = new InputSystem();
+		RaycastController = new PlayerRaycastController(this);
 
 		SetupAnimation();
 		FSM = new PlayerStateMachine(this);
@@ -39,17 +60,12 @@ public partial class Player : CharacterBody2D, IDamageable
 		FSM.AddState(EPlayerState.WALLCLING, new PlayerWallClingState(this, FSM, AnimationController.GetState(EPlayerState.WALLCLING)));
 		FSM.AddState(EPlayerState.WALLJUMP, new PlayerWallJumpState(this, FSM, AnimationController.GetState(EPlayerState.WALLJUMP)));
 		FSM.AddState(EPlayerState.HURT, new PlayerHurtState(this, FSM, AnimationController.GetState(EPlayerState.HURT)));
+		FSM.AddState(EPlayerState.CLIMB, new PlayerClimbState(this, FSM, AnimationController.GetState(EPlayerState.CLIMB)));
+		FSM.AddState(EPlayerState.CLIMBDOWN, new PlayerClimbDownState(this, FSM, AnimationController.GetState(EPlayerState.CLIMBDOWN)));
+		FSM.AddState(EPlayerState.CLIMBUP, new PlayerClimbUpState(this, FSM, AnimationController.GetState(EPlayerState.CLIMBUP)));
 		FSM.Start(EPlayerState.IDLE);
-
-		RaycastController = new PlayerRaycastController(this);
-		
-		// ray.GetCollisionPoint()
-		// ray.Di
 	}
 
-	public void RaycastInit(){
-		
-	}
 
 	public override void _Process(double delta)
 	{
@@ -61,7 +77,8 @@ public partial class Player : CharacterBody2D, IDamageable
 
 		FSM.Update();
 
-		if(Godot.Input.IsActionJustPressed("ui_select")){
+		if (Godot.Input.IsActionJustPressed("ui_select"))
+		{
 			FSM.SetNextState(EPlayerState.HURT);
 		}
 
@@ -99,7 +116,7 @@ public partial class Player : CharacterBody2D, IDamageable
 
 	public RectangleShape2D CollisionBox => CS.Shape as RectangleShape2D;
 
-    public virtual void SetupAnimation()
+	public virtual void SetupAnimation()
 	{
 		AnimationController = new PlayerAnimationController(AS);
 		PlayerAnimationInitializer.LoadAnimations(AnimationController);
@@ -109,7 +126,8 @@ public partial class Player : CharacterBody2D, IDamageable
 		AS.AnimationLooped += () => OnAnimationLooped(AS.Animation);
 	}
 
-	public void FlipH(){
+	public void FlipH()
+	{
 		Facing *= -1f;
 		AS.FlipH = Facing < 0;
 	}
@@ -168,9 +186,9 @@ public partial class Player : CharacterBody2D, IDamageable
 		}
 	}
 
-	public virtual void PlayAnimation(string name, int frame = 0, int frameProgress = 0)
+	public virtual void PlayAnimation(string name, int frame = 0, float frameProgress = 0, bool playBack = false)
 	{
-		AS.Play(name);
+		AS.Play(name, fromEnd : playBack);
 		AS.SetFrameAndProgress(frame, frameProgress);
 	}
 
