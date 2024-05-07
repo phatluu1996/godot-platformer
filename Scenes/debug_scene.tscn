@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://jjyvvm6w4lis"]
+[gd_scene load_steps=9 format=3 uid="uid://jjyvvm6w4lis"]
 
 [ext_resource type="PackedScene" uid="uid://cw0358iq6ednr" path="res://Prefabs/x.tscn" id="1_najru"]
 [ext_resource type="Script" path="res://Scripts/LevelObjects/Ladder.cs" id="1_wdrve"]
@@ -6,21 +6,19 @@
 [ext_resource type="Script" path="res://Scripts/Core/GameManager.cs" id="3_0x3k0"]
 [ext_resource type="Script" path="res://Scripts/Core/SoundManager.cs" id="4_7nwuq"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_o6o2a"]
-load_path = "res://.godot/imported/ladder.png-5f537d44864c4992fad854ffd0476889.ctex"
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i3xc5"]
 size = Vector2(16, 65)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6kfo1"]
 size = Vector2(32, 2)
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_vkhjl"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6id4a"]
+size = Vector2(58, 2)
 
 [node name="DebugScene" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -51)
+position = Vector2(0, -179)
 scale = Vector2(1, 0.069)
 zoom = Vector2(2, 2)
 
@@ -29,13 +27,6 @@ position = Vector2(64, -96)
 collision_layer = 4
 script = ExtResource("1_wdrve")
 CS = NodePath("LadderBody")
-
-[node name="Sprite" type="Sprite2D" parent="Ladder"]
-texture_repeat = 2
-texture = SubResource("CompressedTexture2D_o6o2a")
-offset = Vector2(0, 32)
-region_enabled = true
-region_rect = Rect2(0, 0, 16, 64)
 
 [node name="LadderBody" type="CollisionShape2D" parent="Ladder"]
 position = Vector2(0, 31.5)
@@ -53,15 +44,16 @@ one_way_collision = true
 debug_color = Color(0.620531, 0.534241, 0, 0.42)
 
 [node name="X" parent="." instance=ExtResource("1_najru")]
-position = Vector2(26, -96)
+position = Vector2(0, -96)
 collision_mask = 2
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(0, 68)
-collision_layer = 2
+[node name="GrippingBar" type="Area2D" parent="."]
+position = Vector2(0, -174)
+collision_layer = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("WorldBoundaryShape2D_vkhjl")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrippingBar"]
+shape = SubResource("RectangleShape2D_6id4a")
+debug_color = Color(1, 0.0783468, 0.599796, 0.42)
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = 5

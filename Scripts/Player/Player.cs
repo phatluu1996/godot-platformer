@@ -15,8 +15,12 @@ public partial class Player : CharacterBody2D, IDamageable
 	public float Facing;
 	public bool IsAttacking;
 	public bool CanClimbLadder;
+	public bool CanGrip;
 	public bool OnMomentum;
+	[Export]
+	public Area2D GripTrigger;
 	public Node2D Ladder;
+	public Area2D GripableObject;
 	public EPlayerWeapon EquippedWeaponType;
 	public int Energy;
 	public int EnergyLimit;
@@ -63,6 +67,7 @@ public partial class Player : CharacterBody2D, IDamageable
 		FSM.AddState(EPlayerState.CLIMB, new PlayerClimbState(this, FSM, AnimationController.GetState(EPlayerState.CLIMB)));
 		FSM.AddState(EPlayerState.CLIMBDOWN, new PlayerClimbDownState(this, FSM, AnimationController.GetState(EPlayerState.CLIMBDOWN)));
 		FSM.AddState(EPlayerState.CLIMBUP, new PlayerClimbUpState(this, FSM, AnimationController.GetState(EPlayerState.CLIMBUP)));
+		FSM.AddState(EPlayerState.GRIP, new PlayerGrippingState(this, FSM, AnimationController.GetState(EPlayerState.GRIP)));
 		FSM.Start(EPlayerState.IDLE);
 	}
 

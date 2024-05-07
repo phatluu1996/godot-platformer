@@ -3,34 +3,64 @@
     "NONE": [
       { "name": "idle", "loopFrame": 0 },
       { "name": "tired", "loopFrame": 0 }
+    ],
+    "SABER": [
+      { "name": "idle_saber0", "loopFrame": 0 },
+      { "name": "idle_saber1", "loopFrame": 0 },
+      { "name": "idle_saber2", "loopFrame": 0 }
     ]
   },
   "WALK": {
-    "NONE": [{ "name": "walk", "loopFrame": 1 }]
+    "NONE": [{ "name": "walk", "loopFrame": 1 }],
+    "SABER": [
+      { "name": "idle_saber0", "loopFrame": 0 },
+      { "name": "idle_saber1", "loopFrame": 0 },
+      { "name": "idle_saber2", "loopFrame": 0 }
+    ]
   },
   "JUMP": {
-    "NONE": [{ "name": "jump", "loopFrame": 2 }]
+    "NONE": [{ "name": "jump", "loopFrame": 2 }],
+    "SABER": [
+      { "name": "air_saber", "loopFrame": 0 }
+    ]
   },
   "FALL": {
-    "NONE": [{ "name": "fall", "loopFrame": 2 }]
+    "NONE": [{ "name": "fall", "loopFrame": 2 }],
+    "SABER": [
+      { "name": "air_saber", "loopFrame": 0 }
+    ]
   },
   "LAND": {
-    "NONE": [{ "name": "land", "loopFrame": 0 }]
+    "NONE": [{ "name": "land", "loopFrame": 0 }],
+    "SABER": [
+      { "name": "idle_saber0", "loopFrame": 0 },
+      { "name": "idle_saber1", "loopFrame": 0 },
+      { "name": "idle_saber2", "loopFrame": 0 }
+    ]
   },
   "DASH": {
     "NONE": [
       { "name": "dash_init", "loopFrame": 0 },
       { "name": "dash", "loopFrame": 0 },
       { "name": "dash_end", "loopFrame": 0 }
+    ],
+    "SABER": [
+      { "name": "dash_saber", "loopFrame": 0 }
     ]
   },
   "WALLCLING": {
-    "NONE": [{ "name": "wallcling", "loopFrame": 2 }]
+    "NONE": [{ "name": "wallcling", "loopFrame": 2 }],
+    "SABER": [
+      { "name": "wall_saber", "loopFrame": 0 }
+    ]
   },
   "WALLJUMP": {
     "NONE": [
       { "name": "walljump1", "loopFrame": 3 },
       { "name": "walljump2", "loopFrame": 2 }
+    ],
+    "SABER": [
+      { "name": "air_saber", "loopFrame": 0 }
     ]
   },
   "HURT": {
@@ -40,12 +70,24 @@
     ]
   },
   "CLIMB": {
-    "NONE": [{ "name": "climb", "loopFrame": 0 }]
+    "NONE": [{ "name": "climb", "loopFrame": 0 }],
+    "SABER": [
+      { "name": "climb_saber", "loopFrame": 0 }
+    ]
   },
   "CLIMBDOWN": {
     "NONE": [{ "name": "climbdown", "loopFrame": 0 }]
   },
   "CLIMBUP": {
     "NONE": [{ "name": "climbup", "loopFrame": 0 }]
+  },
+  "GRIP": {
+    "NONE": [
+      { "name": "grip", "loopFrame": 0 },
+      { "name": "gripturn", "loopFrame": 0 }
+    ],
+    "SABER": [
+      { "name": "grip_saber", "loopFrame": 0 }
+    ]
   }
 }

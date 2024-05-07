@@ -73,6 +73,8 @@ toggle_debug={
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Ground"
 2d_physics/layer_3="Ladder"
+2d_physics/layer_4="GripableObject"
+2d_physics/layer_5="GripingHand"
 
 [rendering]
 

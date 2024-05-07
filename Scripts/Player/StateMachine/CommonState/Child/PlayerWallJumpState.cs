@@ -52,6 +52,8 @@ public class PlayerWallJumpState : PlayerState
             {
                 FSM.SetNextState(EPlayerState.CLIMB);
             }
+        }else if(Player.CanGrip && Input.Up.Held){
+            FSM.SetNextState(EPlayerState.GRIP);
         }
     }
 

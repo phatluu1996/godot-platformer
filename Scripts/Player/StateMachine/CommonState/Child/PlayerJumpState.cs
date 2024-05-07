@@ -25,6 +25,8 @@ public class PlayerJumpState : PlayerAirBornState
         else if (Player.CanClimbLadder && (Input.Up.Pressed || Input.Down.Pressed))
         {
             FSM.SetNextState(EPlayerState.CLIMB);
+        }else if(Player.CanGrip && Input.Up.Held){
+            FSM.SetNextState(EPlayerState.GRIP);
         }
     }
 
