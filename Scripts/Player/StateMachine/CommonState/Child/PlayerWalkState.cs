@@ -17,7 +17,7 @@ public class PlayerWalkState : PlayerGroundedState
 
     }
 
-    public override void Update()
+    protected override void Update()
     {
         base.Update();
         Player.velocity.X = Input.xHAxis * Speed;

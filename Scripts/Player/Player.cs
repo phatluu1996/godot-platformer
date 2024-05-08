@@ -44,6 +44,24 @@ public partial class Player : CharacterBody2D, IDamageable
 		}
 	}
 
+	public RectangleShape2D CollisionBox => CS.Shape as RectangleShape2D;
+
+	public virtual void SetupAnimation()
+	{
+		AnimationController = new PlayerAnimationController(AS);
+		PlayerAnimationInitializer.LoadAnimations(AnimationController);
+		AS.AnimationChanged += () => OnAnimationChanged(AS.Animation);
+		AS.FrameChanged += () => OnFrameChangedEvent(AS.Frame);
+		AS.AnimationFinished += () => OnAnimationFinished(AS.Animation);
+		AS.AnimationLooped += () => OnAnimationLooped(AS.Animation);
+	}
+
+	public void FlipH()
+	{
+		Facing *= -1f;
+		AS.FlipH = Facing < 0;
+	}
+
 	public override void _Ready()
 	{
 		Facing = 1f;
@@ -78,9 +96,9 @@ public partial class Player : CharacterBody2D, IDamageable
 
 		velocity = Velocity;
 
-		RaycastController.Update();
+		RaycastController.Execute();
 
-		FSM.Update();
+		FSM.Excute();
 
 		if (Godot.Input.IsActionJustPressed("ui_select"))
 		{
@@ -90,51 +108,6 @@ public partial class Player : CharacterBody2D, IDamageable
 		Velocity = velocity;
 
 		MoveAndSlide();
-	}
-
-
-	public override void _PhysicsProcess(double delta)
-	{
-
-
-		// Add the gravity.
-		// if (!IsOnFloor())
-		// 	velocity.Y += Constants.GRAVITY * (float)delta;
-
-		// // Handle Jump.
-		// if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-		// 	velocity.Y = Constants.JUMP_FORCE;
-
-		// // Get the input direction and handle the movement/deceleration.
-		// // As good practice, you should replace UI actions with custom gameplay actions.
-		// Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		// if (direction != Vector2.Zero)
-		// {
-		// 	velocity.X = direction.X * Constants.WALK_SPEED;
-		// }
-		// else
-		// {
-		// 	velocity.X = Mathf.MoveToward(Velocity.X, 0, Constants.WALK_SPEED);
-		// }
-
-	}
-
-	public RectangleShape2D CollisionBox => CS.Shape as RectangleShape2D;
-
-	public virtual void SetupAnimation()
-	{
-		AnimationController = new PlayerAnimationController(AS);
-		PlayerAnimationInitializer.LoadAnimations(AnimationController);
-		AS.AnimationChanged += () => OnAnimationChanged(AS.Animation);
-		AS.FrameChanged += () => OnFrameChangedEvent(AS.Frame);
-		AS.AnimationFinished += () => OnAnimationFinished(AS.Animation);
-		AS.AnimationLooped += () => OnAnimationLooped(AS.Animation);
-	}
-
-	public void FlipH()
-	{
-		Facing *= -1f;
-		AS.FlipH = Facing < 0;
 	}
 
 	public void GravityForceApply()
@@ -149,7 +122,12 @@ public partial class Player : CharacterBody2D, IDamageable
 
 	public void Damage(int damage)
 	{
+	}
 
+	public virtual void PlayAnimation(string name, int frame = 0, float frameProgress = 0, bool playBack = false)
+	{
+		AS.Play(name, fromEnd : playBack);
+		AS.SetFrameAndProgress(frame, frameProgress);
 	}
 
 	public virtual void OnAnimationChanged(string animationName)
@@ -188,20 +166,12 @@ public partial class Player : CharacterBody2D, IDamageable
 			// 	frameProgress = AS.FrameProgress;
 			// }
 			PlayAnimation(thisState.TransitedAnimation(), 0, 0);
+		}else{
+			
 		}
 	}
 
-	public virtual void PlayAnimation(string name, int frame = 0, float frameProgress = 0, bool playBack = false)
-	{
-		AS.Play(name, fromEnd : playBack);
-		AS.SetFrameAndProgress(frame, frameProgress);
-	}
+	public virtual void LogicUpdate(PlayerState thisState){
 
-	public override void _Draw()
-	{
-		base._Draw();
-		RectangleShape2D rect = CS.Shape as RectangleShape2D;
-
-		Debug.DrawRect(this, CS.Position, rect.Size, ColorUtil.rgba(1, 0, 0, 0.5f), true);
 	}
 }

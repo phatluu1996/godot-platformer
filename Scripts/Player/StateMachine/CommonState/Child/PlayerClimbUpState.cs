@@ -17,7 +17,7 @@ public class PlayerClimbUpState : PlayerState
         Player.y = Player.Ladder.Position.Y + 38f;
     }
 
-    public override void Update()
+    protected override void Update()
     {
         base.Update();
 

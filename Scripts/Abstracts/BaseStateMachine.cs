@@ -16,11 +16,11 @@ public abstract class BaseStateMachine<EnumState> where EnumState : Enum
         CurrentState.Enter();
     }
 
-    public virtual void Update(){
+    public virtual void Excute(){
         EnumState nextStateKey = NextStateKey;
 
         if(!IsStateTransactioning && nextStateKey.Equals(CurrentState.StateKey)){
-            CurrentState.Update();
+            CurrentState.Excute();
         }else if(!IsStateTransactioning){
             TransitionToState(nextStateKey);
         }        

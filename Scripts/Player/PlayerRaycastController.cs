@@ -68,44 +68,12 @@ public class PlayerRaycastController
         Extents = Size / 2;
     }
 
-    public void Update()
+    public void Execute()
     {
         Collisions.Reset();
         UpdateRectData();
         CalculateRaySpacing();
         CheckHorizontalCollisions();
-        // if (Player.velocity.X != 0)
-        // {
-
-        // }
-        // else
-        // {
-        //     for (int i = 0; i < HorizontalRays.Count; i++)
-        //     {
-        //         RayCast2D ray = HorizontalRays[i];
-        //         ray.Enabled = false;
-        //     }
-        // }
-
-        // if (Player.velocity.X != 0)
-        // {
-        //     float rayLength = Mathf.Abs(Player.velocity.Y);
-        //     for (int i = 0; i < VerticalRays.Count; i++)
-        //     {
-        //         RayCast2D ray = VerticalRays[i];
-        //         ray.Enabled = true;
-        //         ray.Position = (Player.velocity.Y >= 0 ? BL : TL) + Vector2.Right * VerticalRaySpacing * i;
-        //         ray.TargetPosition = rayLength * Vector2.Down * (Player.velocity.Y >= 0 ? 1 : -1);
-        //     }
-        // }
-        // else
-        // {
-        //     for (int i = 0; i < VerticalRays.Count; i++)
-        //     {
-        //         RayCast2D ray = VerticalRays[i];
-        //         ray.Enabled = false;
-        //     }
-        // }
     }
 
     public void CalculateRaySpacing()

@@ -11,7 +11,7 @@ public class PlayerFallState : PlayerAirBornState
         base.Enter();
     }
 
-    public override void Update()
+    protected override void Update()
     {
         base.Update();
         float movingSpeed = Player.OnMomentum ? Constants.MOMENTUM_SPEED : Constants.WALK_SPEED;

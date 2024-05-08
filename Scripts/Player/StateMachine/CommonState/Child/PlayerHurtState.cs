@@ -14,7 +14,7 @@ public class PlayerHurtState : PlayerState
         Player.velocity.X = -Player.Facing * Constants.KNOCKBACK_SPEED;
     }
 
-    public override void Update()
+    protected override void Update()
     {
         base.Update();
         Player.GravityForceApply();

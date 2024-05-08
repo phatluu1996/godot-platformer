@@ -29,9 +29,24 @@ public class PlayerState : BaseState<EPlayerState>
         }
     }
 
-    public override void Update()
+    public override void Excute()
+    {
+        PreUpdate();
+        Update();
+        PostUpdate();
+    }
+
+    protected override void PreUpdate(){
+        
+    }
+
+    protected override void Update()
     {
         
+    }
+
+    protected override void PostUpdate(){
+        Player.LogicUpdate(this);
     }
 
     public override void Exit()
@@ -56,4 +71,6 @@ public class PlayerState : BaseState<EPlayerState>
     public override string TransitedAnimation(){        
         return Animation[EPlayerWeapon.NONE][0].name;
     }
+
+    
 }

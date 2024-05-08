@@ -16,7 +16,7 @@ public class PlayerClimbState : PlayerState
         Player.x = Player.Ladder.Position.X;
     }
 
-    public override void Update()
+    protected override void Update()
     {
         base.Update();
         Input.Listen();

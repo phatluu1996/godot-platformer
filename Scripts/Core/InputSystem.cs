@@ -9,12 +9,19 @@ public class InputSystem
     public InputKey Right = new InputKey("right");
     public InputKey Jump = new InputKey("jump");
     public InputKey Dash = new InputKey("dash");
+    public InputKey Attack = new InputKey("attack");
+    public InputKey SubAttack = new InputKey("sub_attack");
+    public InputKey LMenu = new InputKey("left_menu");
+    public InputKey RMenu = new InputKey("right_menu");
+    public InputKey Start = new InputKey("start");
+    public InputKey Select = new InputKey("select");
+
 
     public List<InputKey> Keys;
 
     public InputSystem()
     {
-        Keys = new List<InputKey>(){Up, Down, Left, Right, Jump, Dash};
+        Keys = new List<InputKey>(){Up, Down, Left, Right, Jump, Dash, Attack, SubAttack, LMenu, RMenu, Start, Select};
     }
 
     public void Listen(){

@@ -16,7 +16,7 @@ public class PlayerIdleState : PlayerGroundedState
         Player.velocity.X = 0;
     }
 
-    public override void Update()
+    protected override void Update()
     {
         base.Update();
         if (!Player.IsOnFloor())

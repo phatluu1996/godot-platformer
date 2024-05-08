@@ -21,7 +21,7 @@ public class PlayerDashState : PlayerGroundedState
         Player.CS.Position = Constants.DASH_BOX_OFFSET;
     }
 
-    public override void Update()
+    protected override void Update()
     {
         base.Update();
 
