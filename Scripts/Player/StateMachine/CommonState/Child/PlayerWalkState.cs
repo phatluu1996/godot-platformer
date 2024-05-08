@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 public class PlayerWalkState : PlayerGroundedState
 {
     public float Speed;
-    public PlayerWalkState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, List<PlayerAnimation>> animation) : base(player, fsm, animation)
+    public PlayerWalkState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, PlayerAnimationPair> animation) : base(player, fsm, animation)
     {
     }
 
@@ -20,7 +20,10 @@ public class PlayerWalkState : PlayerGroundedState
     protected override void Update()
     {
         base.Update();
-        Player.velocity.X = Input.xHAxis * Speed;
+        bool canWalk = Player.CanWalkWhenAttacking();   
+
+        Player.velocity.X = Input.xHAxis * Speed * canWalk.GetHashCode();        
+
         if (!Player.IsOnFloor())
         {
             FSM.SetNextState(EPlayerState.FALL);

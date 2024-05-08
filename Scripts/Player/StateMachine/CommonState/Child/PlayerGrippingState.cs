@@ -3,7 +3,7 @@ using Godot;
 
 public class PlayerGrippingState : PlayerState
 {
-    public PlayerGrippingState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, List<PlayerAnimation>> animation) : base(player, fsm, animation)
+    public PlayerGrippingState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, PlayerAnimationPair> animation) : base(player, fsm, animation)
     {
     }
 
@@ -11,6 +11,7 @@ public class PlayerGrippingState : PlayerState
     {
         base.Enter();
         Player.velocity = Vector2.Zero;
+        Player.OnMomentum = false;
         if(Player.GripableObject != null){
             Player.y = Player.GripableObject.GlobalPosition.Y + Mathf.Abs(Player.GripTrigger.GlobalPosition.Y - Player.GlobalPosition.Y);
         }else{
@@ -24,7 +25,7 @@ public class PlayerGrippingState : PlayerState
         base.Update();
         Input.Listen();
         if(Input.xPAxis != 0 && Input.xPAxis != Player.Facing){
-            Player.PlayAnimation(Animation[EPlayerWeapon.NONE][1].name);
+            Player.PlayAnimation(Animation[EPlayerWeapon.NONE].normal[1].name);
         }
 
         if(Input.Jump.Pressed){
@@ -34,7 +35,7 @@ public class PlayerGrippingState : PlayerState
             }else if(!Input.Up.Held){
                 FSM.SetNextState(EPlayerState.JUMP);
             }
-        }else if(Player.GripableObject != null){
+        }else if(Player.GripableObject == null){
             FSM.SetNextState(EPlayerState.FALL);
         }
     }
@@ -47,7 +48,7 @@ public class PlayerGrippingState : PlayerState
     public override void OnFrameChangedEvent(int frame)
     {
         base.OnFrameChangedEvent(frame);        
-        if(frame == 4 && Animation[EPlayerWeapon.NONE][1].name == Player.AS.Animation){
+        if(frame == 4 && Animation[EPlayerWeapon.NONE].normal[1].name == Player.AS.Animation){
             Player.FlipH();
         }
     }

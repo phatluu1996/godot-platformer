@@ -5,7 +5,7 @@ using Godot;
 
 public class PlayerClimbDownState : PlayerState
 {
-    public PlayerClimbDownState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, List<PlayerAnimation>> animation) : base(player, fsm, animation)
+    public PlayerClimbDownState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, PlayerAnimationPair> animation) : base(player, fsm, animation)
     {
     }
 

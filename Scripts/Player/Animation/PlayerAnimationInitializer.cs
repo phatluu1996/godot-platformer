@@ -6,34 +6,52 @@ using System.IO;
 public class PlayerAnimationInitializer
 {
     public static void LoadAnimations(PlayerAnimationController ac)
-    {        
+    {
         string json = File.ReadAllText("./Json/zero_animation.json");
 
-        Dictionary<EPlayerState, Dictionary<EPlayerWeapon, List<PlayerAnimation>>> stateAnimationsCollection = JsonConvert.DeserializeObject<Dictionary<EPlayerState, Dictionary<EPlayerWeapon, List<PlayerAnimation>>>>(json);
+        Dictionary<EPlayerState, Dictionary<EPlayerWeapon, PlayerAnimationPair>> stateAnimationsCollection = JsonConvert.DeserializeObject<Dictionary<EPlayerState, Dictionary<EPlayerWeapon, PlayerAnimationPair>>>(json);
 
-        ac.StateAnimations = stateAnimationsCollection; 
+        ac.StateAnimations = stateAnimationsCollection;
 
         Dictionary<string, PlayerAnimation> animationsMap = new Dictionary<string, PlayerAnimation>();
         foreach (var stateAnimations in stateAnimationsCollection.Values)
         {
-            foreach (var _animations in stateAnimations.Values)
+            foreach (var pairAnimation in stateAnimations?.Values)
             {
-                foreach (var animation in _animations)
+                if (pairAnimation?.normal != null)
                 {
-                    if(!animationsMap.ContainsKey(animation.name)){
-                        animationsMap.Add(animation.name, animation);
+                    foreach (var animation in pairAnimation?.normal)
+                    {
+
+                        if (!animationsMap.ContainsKey(animation.name))
+                        {
+                            animationsMap.Add(animation.name, animation);
+                        }
+
                     }
-                    
-                }                
+                }
+
+
+                if (pairAnimation?.special != null)
+                {
+                    foreach (var animation in pairAnimation?.special)
+                    {
+                        if (!animationsMap.ContainsKey(animation.name))
+                        {
+                            animationsMap.Add(animation.name, animation);
+                        }
+                    }
+                }
+
             }
-        }    
-        ac.AllAnimations = animationsMap;    
+        }
+        ac.AllAnimations = animationsMap;
 
         // string[] lines = File.ReadAllLines("./Json/test.txt");
         // for (int i = 0; i < lines.Length; i+=4)
         // {
         //     // string text = lines[i] + "\n" + lines[i+1] + "\n" + lines[i+2];
-            
+
 
         //     string data = lines[i+2].Trim();
 
@@ -57,4 +75,4 @@ public class PlayerAnimationInitializer
         //     GD.Print("\n");
         // }
     }
-}   
+}

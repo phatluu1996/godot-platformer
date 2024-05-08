@@ -5,7 +5,7 @@ public class PlayerClimbState : PlayerState
 {
     int currentFrame;
     float currentFrameProgress;
-    public PlayerClimbState(global::Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, List<PlayerAnimation>> animation) : base(player, fsm, animation)
+    public PlayerClimbState(global::Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, PlayerAnimationPair> animation) : base(player, fsm, animation)
     {
     }
 
@@ -25,7 +25,7 @@ public class PlayerClimbState : PlayerState
         Player.AS.SpeedScale = -Mathf.Sign(Player.velocity.Y);
         if (Input.yPAxis != 0)
         {
-            Player.PlayAnimation(Animation[EPlayerWeapon.NONE][0].name, currentFrame, currentFrameProgress);
+            Player.PlayAnimation(Animation[EPlayerWeapon.NONE].normal[0].name, currentFrame, currentFrameProgress);
         }
 
         if (!Input.Up.Held && !Input.Down.Held)

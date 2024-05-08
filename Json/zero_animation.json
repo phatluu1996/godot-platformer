@@ -1,93 +1,143 @@
 {
   "IDLE": {
-    "NONE": [
-      { "name": "idle", "loopFrame": 0 },
-      { "name": "tired", "loopFrame": 0 }
-    ],
-    "SABER": [
-      { "name": "idle_saber0", "loopFrame": 0 },
-      { "name": "idle_saber1", "loopFrame": 0 },
-      { "name": "idle_saber2", "loopFrame": 0 }
-    ]
+    "NONE": {
+      "normal": [
+        { "name": "idle", "loopFrame": 0 },
+        { "name": "tired", "loopFrame": 0 }
+      ]
+    },
+    "SABER": {
+      "normal": [
+        {
+          "name": "idle_saber0",
+          "loopFrame": 0,
+          "canPlayNext": true,
+          "repeatFrame": 2,
+          "repeatFrameProgress": 0.75
+        },
+        {
+          "name": "idle_saber1",
+          "loopFrame": 0,
+          "canPlayNext": true,
+          "repeatFrame": 2
+        },
+        { "name": "idle_saber2", "loopFrame": 0 }
+      ]
+    }
   },
   "WALK": {
-    "NONE": [{ "name": "walk", "loopFrame": 1 }],
-    "SABER": [
-      { "name": "idle_saber0", "loopFrame": 0 },
-      { "name": "idle_saber1", "loopFrame": 0 },
-      { "name": "idle_saber2", "loopFrame": 0 }
-    ]
-  },
-  "JUMP": {
-    "NONE": [{ "name": "jump", "loopFrame": 2 }],
-    "SABER": [
-      { "name": "air_saber", "loopFrame": 0 }
-    ]
-  },
-  "FALL": {
-    "NONE": [{ "name": "fall", "loopFrame": 2 }],
-    "SABER": [
-      { "name": "air_saber", "loopFrame": 0 }
-    ]
+    "NONE": {
+      "normal": [{ "name": "walk", "loopFrame": 1 }]
+    },
+    "SABER": {
+      "normal": [
+        {
+          "name": "idle_saber0",
+          "loopFrame": 0,
+          "canPlayNext": true,
+          "repeatFrame": 2,
+          "repeatFrameProgress": 0.75
+        },
+        {
+          "name": "idle_saber1",
+          "loopFrame": 0,
+          "canPlayNext": true,
+          "repeatFrame": 2
+        },
+        { "name": "idle_saber2", "loopFrame": 0 }
+      ]
+    }
   },
   "LAND": {
-    "NONE": [{ "name": "land", "loopFrame": 0 }],
-    "SABER": [
-      { "name": "idle_saber0", "loopFrame": 0 },
-      { "name": "idle_saber1", "loopFrame": 0 },
-      { "name": "idle_saber2", "loopFrame": 0 }
-    ]
+    "NONE": { "normal": [{ "name": "land", "loopFrame": 0 }] },
+    "SABER": {
+      "normal": [
+        {
+          "name": "idle_saber0",
+          "loopFrame": 0,
+          "canPlayNext": true,
+          "repeatFrame": 2,
+          "repeatFrameProgress": 0.75
+        },
+        {
+          "name": "idle_saber1",
+          "loopFrame": 0,
+          "canPlayNext": true,
+          "repeatFrame": 2
+        },
+        { "name": "idle_saber2", "loopFrame": 0 }
+      ]
+    }
+  },
+  "JUMP": {
+    "NONE": { "normal": [{ "name": "jump", "loopFrame": 2 }] },
+    "SABER": { "normal": [{ "name": "air_saber", "loopFrame": 0 }] }
+  },
+  "FALL": {
+    "NONE": { "normal": [{ "name": "fall", "loopFrame": 2 }] },
+    "SABER": {
+      "normal": [
+        {
+          "name": "air_saber",
+          "loopFrame": 0,
+          "cancelOnTransiting": true,
+          "skipOnTransited": true
+        }
+      ]
+    }
   },
   "DASH": {
-    "NONE": [
-      { "name": "dash_init", "loopFrame": 0 },
-      { "name": "dash", "loopFrame": 0 },
-      { "name": "dash_end", "loopFrame": 0 }
-    ],
-    "SABER": [
-      { "name": "dash_saber", "loopFrame": 0 }
-    ]
+    "NONE": {
+      "normal": [
+        { "name": "dash_init", "loopFrame": 0 },
+        { "name": "dash", "loopFrame": 0 },
+        { "name": "dash_end", "loopFrame": 0 }
+      ]
+    },
+    "SABER": { "normal": [{ "name": "dash_saber", "loopFrame": 0 }] }
   },
   "WALLCLING": {
-    "NONE": [{ "name": "wallcling", "loopFrame": 2 }],
-    "SABER": [
-      { "name": "wall_saber", "loopFrame": 0 }
-    ]
+    "NONE": { "normal": [{ "name": "wallcling", "loopFrame": 2 }] },
+    "SABER": {
+      "normal": [{ "name": "wall_saber", "loopFrame": 0, "transitedFrame": -1, "resumeFrame": 2 }]
+    }
   },
   "WALLJUMP": {
-    "NONE": [
-      { "name": "walljump1", "loopFrame": 3 },
-      { "name": "walljump2", "loopFrame": 2 }
-    ],
-    "SABER": [
-      { "name": "air_saber", "loopFrame": 0 }
-    ]
+    "NONE": {
+      "normal": [
+        { "name": "walljump1", "loopFrame": 3 },
+        { "name": "walljump2", "loopFrame": 2 }
+      ]
+    },
+    "SABER": { "normal": [{ "name": "air_saber", "loopFrame": 0 }] }
   },
   "HURT": {
-    "NONE": [
-      { "name": "hurt1", "loopFrame": 0 },
-      { "name": "hurt2", "loopFrame": 0 }
-    ]
+    "NONE": {
+      "normal": [
+        { "name": "hurt1", "loopFrame": 0 },
+        { "name": "hurt2", "loopFrame": 0 }
+      ]
+    }
   },
   "CLIMB": {
-    "NONE": [{ "name": "climb", "loopFrame": 0 }],
-    "SABER": [
-      { "name": "climb_saber", "loopFrame": 0 }
-    ]
+    "NONE": { "normal": [{ "name": "climb", "loopFrame": 0 }] },
+    "SABER": { "normal": [{ "name": "climb_saber", "loopFrame": 0 }] }
   },
   "CLIMBDOWN": {
-    "NONE": [{ "name": "climbdown", "loopFrame": 0 }]
+    "NONE": { "normal": [{ "name": "climbdown", "loopFrame": 0 }] }
   },
   "CLIMBUP": {
-    "NONE": [{ "name": "climbup", "loopFrame": 0 }]
+    "NONE": { "normal": [{ "name": "climbup", "loopFrame": 0 }] }
   },
   "GRIP": {
-    "NONE": [
-      { "name": "grip", "loopFrame": 0 },
-      { "name": "gripturn", "loopFrame": 0 }
-    ],
-    "SABER": [
-      { "name": "grip_saber", "loopFrame": 0 }
-    ]
+    "NONE": {
+      "normal": [
+        { "name": "grip", "loopFrame": 0, "resumeFrame": 4 },
+        { "name": "gripturn", "loopFrame": 0 }
+      ]
+    },
+    "SABER": {
+      "normal": [{ "name": "grip_saber", "loopFrame": 0 }]
+    }
   }
 }

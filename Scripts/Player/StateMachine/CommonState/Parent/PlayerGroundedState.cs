@@ -6,7 +6,7 @@ using Godot;
 
 public class PlayerGroundedState : PlayerState
 {    
-    public PlayerGroundedState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, List<PlayerAnimation>> animation) : base(player, fsm, animation)
+    public PlayerGroundedState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, PlayerAnimationPair> animation) : base(player, fsm, animation)
     {
     }
 

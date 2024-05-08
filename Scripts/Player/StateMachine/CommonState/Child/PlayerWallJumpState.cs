@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class PlayerWallJumpState : PlayerState
 {
-    public PlayerWallJumpState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, List<PlayerAnimation>> animation) : base(player, fsm, animation)
+    public PlayerWallJumpState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, PlayerAnimationPair> animation) : base(player, fsm, animation)
     {
     }
 
@@ -75,6 +75,6 @@ public class PlayerWallJumpState : PlayerState
     public override string TransitedAnimation()
     {
         int index = Player.OnMomentum ? 1 : 0;
-        return Animation[EPlayerWeapon.NONE][index].name;
+        return Animation[EPlayerWeapon.NONE].normal[index].name;
     }
 }

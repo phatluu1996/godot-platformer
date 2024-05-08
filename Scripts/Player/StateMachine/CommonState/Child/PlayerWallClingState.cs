@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class PlayerWallClingState : PlayerState
 {
-    public PlayerWallClingState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, List<PlayerAnimation>> animation) : base(player, fsm, animation)
+    public PlayerWallClingState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, PlayerAnimationPair> animation) : base(player, fsm, animation)
     {
     }
 

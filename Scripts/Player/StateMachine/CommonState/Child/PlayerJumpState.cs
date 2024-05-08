@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class PlayerJumpState : PlayerAirBornState
 {
-    public PlayerJumpState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, List<PlayerAnimation>> animation) : base(player, fsm, animation)
+    public PlayerJumpState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, PlayerAnimationPair> animation) : base(player, fsm, animation)
     {
     }
 

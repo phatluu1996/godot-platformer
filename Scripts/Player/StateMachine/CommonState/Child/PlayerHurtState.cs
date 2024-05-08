@@ -3,7 +3,7 @@ using System.Reflection.Metadata;
 
 public class PlayerHurtState : PlayerState
 {
-    public PlayerHurtState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, List<PlayerAnimation>> animation) : base(player, fsm, animation)
+    public PlayerHurtState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, PlayerAnimationPair> animation) : base(player, fsm, animation)
     {
     }
 
@@ -49,6 +49,6 @@ public class PlayerHurtState : PlayerState
 
     public override string TransitedAnimation()
     {
-        return Animation[EPlayerWeapon.NONE][0].name;
+        return Animation[EPlayerWeapon.NONE].normal[0].name;
     }
 }

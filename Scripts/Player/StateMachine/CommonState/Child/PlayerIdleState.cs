@@ -6,7 +6,7 @@ using Godot;
 
 public class PlayerIdleState : PlayerGroundedState
 {
-    public PlayerIdleState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, List<PlayerAnimation>> animation) : base(player, fsm, animation)
+    public PlayerIdleState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, PlayerAnimationPair> animation) : base(player, fsm, animation)
     {
     }
 
@@ -31,7 +31,7 @@ public class PlayerIdleState : PlayerGroundedState
         {
             FSM.SetNextState(EPlayerState.DASH);
         }
-        else if (Input.xHAxis != 0 && !Player.RaycastController.Collisions.Right && !Player.RaycastController.Collisions.Left)
+        else if (Input.xHAxis != 0 && !Player.IsAttacking && !Player.RaycastController.Collisions.Right && !Player.RaycastController.Collisions.Left)
         {
             FSM.SetNextState(EPlayerState.WALK);
         }
@@ -74,8 +74,8 @@ public class PlayerIdleState : PlayerGroundedState
     {
         if (Player.Energy < Player.EnergyLimit / 3)
         {
-            return Animation[EPlayerWeapon.NONE][1].name;
+            return Animation[EPlayerWeapon.NONE].normal[1].name;
         }
-        return Animation[EPlayerWeapon.NONE][0].name;
+        return Animation[EPlayerWeapon.NONE].normal[0].name;
     }
 }

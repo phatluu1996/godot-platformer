@@ -834,7 +834,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xxc8g")
 }],
-"loop": true,
+"loop": false,
 "name": &"air_saber",
 "speed": 18.0
 }, {
@@ -1043,7 +1043,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fwj5n")
 }],
-"loop": true,
+"loop": false,
 "name": &"climb_saber",
 "speed": 18.0
 }, {
@@ -1154,7 +1154,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_x4wap")
 }],
-"loop": true,
+"loop": false,
 "name": &"dash_saber",
 "speed": 18.0
 }, {
@@ -1223,7 +1223,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bqltl")
 }],
-"loop": true,
+"loop": false,
 "name": &"grip_saber",
 "speed": 18.0
 }, {
@@ -1356,7 +1356,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_n3tqw")
 }],
-"loop": true,
+"loop": false,
 "name": &"idle_saber0",
 "speed": 16.0
 }, {
@@ -1388,7 +1388,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_p2ae4")
 }],
-"loop": true,
+"loop": false,
 "name": &"idle_saber1",
 "speed": 20.0
 }, {
@@ -1426,7 +1426,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jfrcr")
 }],
-"loop": true,
+"loop": false,
 "name": &"idle_saber2",
 "speed": 24.0
 }, {
@@ -1577,7 +1577,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dnoo0")
 }],
-"loop": true,
+"loop": false,
 "name": &"wall_saber",
 "speed": 18.0
 }, {

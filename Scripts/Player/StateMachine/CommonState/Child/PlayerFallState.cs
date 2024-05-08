@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class PlayerFallState : PlayerAirBornState
 {
-    public PlayerFallState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, List<PlayerAnimation>> animation) : base(player, fsm, animation)
+    public PlayerFallState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, PlayerAnimationPair> animation) : base(player, fsm, animation)
     {
     }
 
@@ -45,5 +45,10 @@ public class PlayerFallState : PlayerAirBornState
     public override void OnAnimationFinished(string animationName)
     {
         base.OnAnimationFinished(animationName);
+    }
+
+    public override void OnAtackAnimationTransited()
+    {
+        
     }
 }

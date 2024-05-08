@@ -7,7 +7,7 @@ public class PlayerDashState : PlayerGroundedState
     public bool initDash;
     public bool endDashSoon;
 
-    public PlayerDashState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, List<PlayerAnimation>> animation) : base(player, fsm, animation)
+    public PlayerDashState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, PlayerAnimationPair> animation) : base(player, fsm, animation)
     {
     }
 
@@ -31,14 +31,14 @@ public class PlayerDashState : PlayerGroundedState
         {
             if (Input.xHAxis == 0)
             {
-                if (Player.AS.Animation == Animation[EPlayerWeapon.NONE][0].name || Player.AS.Animation == Animation[EPlayerWeapon.NONE][1].name)
+                if (Player.AS.Animation == Animation[EPlayerWeapon.NONE].normal[0].name || Player.AS.Animation == Animation[EPlayerWeapon.NONE].normal[1].name)
                 {
                     if (Timer < Constants.DASH_TIME)
                     {
                         endDashSoon = true;
                         Timer = Constants.DASH_TIME;
                     }
-                    Player.PlayAnimation(Animation[EPlayerWeapon.NONE][2].name);
+                    Player.PlayAnimation(Animation[EPlayerWeapon.NONE].normal[2].name);
                 }
                 float endDashSpeed = Constants.ENDDASH_SPEED;
                 if (endDashSoon)
@@ -62,7 +62,7 @@ public class PlayerDashState : PlayerGroundedState
         if (Input.Dash.Pressed)
         {
             endDashSoon = false;
-            Player.PlayAnimation(Animation[EPlayerWeapon.NONE][0].name);
+            Player.PlayAnimation(Animation[EPlayerWeapon.NONE].normal[0].name);
             Timer = 0f;
         }
 
@@ -97,12 +97,12 @@ public class PlayerDashState : PlayerGroundedState
     public override void OnAnimationFinished(string animationName)
     {
         base.OnAnimationFinished(animationName);
-        if (animationName == Animation[EPlayerWeapon.NONE][0].name)
+        if (animationName == Animation[EPlayerWeapon.NONE].normal[0].name)
         {
             initDash = false;
-            Player.PlayAnimation(Animation[EPlayerWeapon.NONE][1].name);
+            Player.PlayAnimation(Animation[EPlayerWeapon.NONE].normal[1].name);
         }
-        else if (animationName == Animation[EPlayerWeapon.NONE][2].name)
+        else if (animationName == Animation[EPlayerWeapon.NONE].normal[2].name)
         {
             FSM.SetNextState(Input.xHAxis != 0 ? EPlayerState.WALK : EPlayerState.IDLE);
         }
