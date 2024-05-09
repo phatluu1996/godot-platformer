@@ -46,9 +46,4 @@ public class PlayerFallState : PlayerAirBornState
     {
         base.OnAnimationFinished(animationName);
     }
-
-    public override void OnAtackAnimationTransited()
-    {
-        
-    }
 }

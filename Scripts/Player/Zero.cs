@@ -25,9 +25,4 @@ public partial class Zero : Player
     public override void SetupAnimation(){    
         base.SetupAnimation();
 	}
-
-    public override void OnAnimationTransited(PlayerState thisState)
-    {
-        base.OnAnimationTransited(thisState);
-    }
 }

@@ -69,13 +69,4 @@ public class PlayerIdleState : PlayerGroundedState
             FSM.SetNextState(EPlayerState.IDLE);
         }
     }
-
-    public override string TransitedAnimation()
-    {
-        if (Player.Energy < Player.EnergyLimit / 3)
-        {
-            return Animation[EPlayerWeapon.NONE].normal[1].name;
-        }
-        return Animation[EPlayerWeapon.NONE].normal[0].name;
-    }
 }

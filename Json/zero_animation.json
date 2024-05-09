@@ -13,15 +13,21 @@
           "loopFrame": 0,
           "canPlayNext": true,
           "repeatFrame": 2,
-          "repeatFrameProgress": 0.75
+          "repeatFrameProgress": 0.75,
+          "resumeAnimation": "idle"
         },
         {
           "name": "idle_saber1",
           "loopFrame": 0,
           "canPlayNext": true,
-          "repeatFrame": 2
+          "repeatFrame": 2,
+          "resumeAnimation": "idle"
         },
-        { "name": "idle_saber2", "loopFrame": 0 }
+        {
+          "name": "idle_saber2",
+          "loopFrame": 0,
+          "resumeAnimation": "idle"
+        }
       ]
     }
   },
@@ -36,15 +42,21 @@
           "loopFrame": 0,
           "canPlayNext": true,
           "repeatFrame": 2,
-          "repeatFrameProgress": 0.75
+          "repeatFrameProgress": 0.75,
+          "resumeAnimation": "idle"
         },
         {
           "name": "idle_saber1",
           "loopFrame": 0,
           "canPlayNext": true,
-          "repeatFrame": 2
+          "repeatFrame": 2,
+          "resumeAnimation": "idle"
         },
-        { "name": "idle_saber2", "loopFrame": 0 }
+        {
+          "name": "idle_saber2",
+          "loopFrame": 0,
+          "resumeAnimation": "idle"
+        }
       ]
     }
   },
@@ -57,15 +69,21 @@
           "loopFrame": 0,
           "canPlayNext": true,
           "repeatFrame": 2,
-          "repeatFrameProgress": 0.75
+          "repeatFrameProgress": 0.75,
+          "resumeAnimation": "idle"
         },
         {
           "name": "idle_saber1",
           "loopFrame": 0,
           "canPlayNext": true,
-          "repeatFrame": 2
+          "repeatFrame": 2,
+          "resumeAnimation": "idle"
         },
-        { "name": "idle_saber2", "loopFrame": 0 }
+        {
+          "name": "idle_saber2",
+          "loopFrame": 0,
+          "resumeAnimation": "idle"
+        }
       ]
     }
   },
@@ -79,9 +97,7 @@
       "normal": [
         {
           "name": "air_saber",
-          "loopFrame": 0,
-          "cancelOnTransiting": true,
-          "skipOnTransited": true
+          "loopFrame": 0
         }
       ]
     }
@@ -99,7 +115,7 @@
   "WALLCLING": {
     "NONE": { "normal": [{ "name": "wallcling", "loopFrame": 2 }] },
     "SABER": {
-      "normal": [{ "name": "wall_saber", "loopFrame": 0, "transitedFrame": -1, "resumeFrame": 2 }]
+      "normal": [{ "name": "wall_saber", "loopFrame": 0 }]
     }
   },
   "WALLJUMP": {
@@ -132,7 +148,7 @@
   "GRIP": {
     "NONE": {
       "normal": [
-        { "name": "grip", "loopFrame": 0, "resumeFrame": 4 },
+        { "name": "grip", "loopFrame": 0 },
         { "name": "gripturn", "loopFrame": 0 }
       ]
     },

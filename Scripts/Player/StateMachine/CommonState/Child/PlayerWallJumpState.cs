@@ -72,9 +72,9 @@ public class PlayerWallJumpState : PlayerState
         base.OnAnimationFinished(animationName);
     }
 
-    public override string TransitedAnimation()
-    {
-        int index = Player.OnMomentum ? 1 : 0;
-        return Animation[EPlayerWeapon.NONE].normal[index].name;
-    }
+    // public override string TransitedAnimation()
+    // {
+    //     int index = Player.OnMomentum ? 1 : 0;
+    //     return Animation[EPlayerWeapon.NONE].normal[index].name;
+    // }
 }

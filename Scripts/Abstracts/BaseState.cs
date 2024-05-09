@@ -13,5 +13,4 @@ public abstract class BaseState<EnumState> where EnumState : Enum
     public abstract void OnFrameChangedEvent(int frame);
     public abstract void OnAnimationFinished(string animationName);
     public abstract void OnAnimationLooped(string animationName);
-    public abstract string TransitedAnimation();
 }

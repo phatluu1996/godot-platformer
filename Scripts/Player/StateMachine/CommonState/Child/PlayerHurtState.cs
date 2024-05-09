@@ -46,9 +46,4 @@ public class PlayerHurtState : PlayerState
     {
         base.OnAnimationLooped(animationName);
     }
-
-    public override string TransitedAnimation()
-    {
-        return Animation[EPlayerWeapon.NONE].normal[0].name;
-    }
 }

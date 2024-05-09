@@ -22,11 +22,8 @@ public class PlayerState : BaseState<EPlayerState>
 
     public override void Enter()
     {
-        Timer = 0;
-        if (Animation != null)
-        {
-            Player.OnAnimationTransited(this);
-        }
+        Timer = 0;     
+        FSM.DoStateTransitionBetween(FSM.LastState.StateKey, StateKey);   
     }
 
     public override void Excute()
@@ -65,37 +62,9 @@ public class PlayerState : BaseState<EPlayerState>
     {
 
     }
+    
     public override void OnAnimationLooped(string animationName)
     {
 
-    }
-
-    public override string TransitedAnimation()
-    {
-        return Animation[EPlayerWeapon.NONE].normal[0].name;
-    }
-
-    public virtual void OnAtackAnimationTransited()
-    {
-        Player.IsAttacking = false;
-        Player.PlayAnimation(TransitedAnimation(), 0, 0);
-    }
-
-    public virtual void OnAttackAnimationEnd()
-    {
-        Player.IsAttacking = false;
-        Player.AttackIndex = 0;
-        Player.PlayAnimation(ResumeAttackingAnimation(), ResumedAnimationFrame(), 0);
-    }
-
-    public virtual string ResumeAttackingAnimation()
-    {
-        PlayerAnimation animation = Player.GetAnimation(Player.AS.Animation);
-        return Animation[EPlayerWeapon.NONE].normal[animation.resumeIndex].name;
-    }
-
-    public virtual int ResumedAnimationFrame()
-    {
-        return Animation[EPlayerWeapon.NONE].normal[0].resumeFrame;
     }
 }

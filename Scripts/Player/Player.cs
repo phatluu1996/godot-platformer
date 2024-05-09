@@ -5,6 +5,7 @@ public partial class Player : CharacterBody2D, IDamageable
 {
 	public PlayerRaycastController RaycastController;
 	public PlayerAnimationController AnimationController;
+	public PlayerWeaponController WeaponController;
 	public PlayerStateMachine FSM;
 	public InputSystem Input;
 	public Vector2 velocity;
@@ -22,7 +23,6 @@ public partial class Player : CharacterBody2D, IDamageable
 	public Area2D GripTrigger;
 	public Node2D Ladder;
 	public Area2D GripableObject;
-	public EPlayerWeapon EquippedWeaponType;
 	public int Energy;
 	public int EnergyLimit;
 
@@ -75,6 +75,10 @@ public partial class Player : CharacterBody2D, IDamageable
 
 		Input = new InputSystem();
 		RaycastController = new PlayerRaycastController(this);
+		WeaponController = new PlayerWeaponController(this);
+		WeaponController.AddWeapon(new PlayerSaberWeapon(EPlayerWeapon.SABER, this, WeaponController));	
+		WeaponController.AddWeapon(new PlayerBusterWeapon(EPlayerWeapon.BUSTER, this, WeaponController));	
+		WeaponController.Init(EPlayerWeapon.SABER, EPlayerWeapon.BUSTER);
 
 		SetupAnimation();
 		FSM = new PlayerStateMachine(this);
@@ -93,7 +97,8 @@ public partial class Player : CharacterBody2D, IDamageable
 		FSM.AddState(EPlayerState.GRIP, new PlayerGrippingState(this, FSM, AnimationController.GetState(EPlayerState.GRIP)));
 		FSM.Start(EPlayerState.IDLE);
 
-		EquippedWeaponType = EPlayerWeapon.SABER;
+		
+
 	}
 
 
@@ -128,7 +133,7 @@ public partial class Player : CharacterBody2D, IDamageable
 	}
 
 	public bool CanWalkWhenAttacking(){
-		if(!IsAttacking || EquippedWeaponType == EPlayerWeapon.BUSTER){
+		if(!IsAttacking || WeaponController.Main.WeaponType == EPlayerWeapon.BUSTER){
 			return true;
 		}
 
@@ -141,7 +146,11 @@ public partial class Player : CharacterBody2D, IDamageable
 
 	public virtual void PlayAnimation(string name, int frame = 0, float frameProgress = 0, bool playBack = false)
 	{
-		AS.Play(name, fromEnd: playBack);
+		if(frame == -1){
+			frame = AS.Frame;
+			frameProgress = AS.FrameProgress;
+		}
+		AS.Play(name, fromEnd: playBack);		
 		AS.SetFrameAndProgress(frame, frameProgress);
 	}
 
@@ -180,63 +189,9 @@ public partial class Player : CharacterBody2D, IDamageable
 		FSM.OnAnimationLooped(animationName);
 	}
 
-	public virtual void OnAnimationTransited(PlayerState thisState)
-	{
-		if (!IsAttacking)
-		{
-			// float frame = thisStateAnimation.transitionFrame;
-			// float frameProgress = 0;
-			// if (thisStateAnimation.transitionFrame == -1)
-			// {
-			// 	frame = AS.Frame;
-			// 	frameProgress = AS.FrameProgress;
-			// }
-			PlayAnimation(thisState.TransitedAnimation(), 0, 0);
-		}
-		else
-		{
-			thisState.OnAtackAnimationTransited();
-		}
-	}
-
 	public virtual void LogicUpdate(PlayerState thisState)
 	{
 
-		switch (EquippedWeaponType)
-		{
-			case EPlayerWeapon.SABER:
-				SaberAttack(thisState);
-				break;
-		}
-	}
-
-	private void SaberAttack(PlayerState thisState)
-	{
-		if (Input.Attack.Pressed && !IsAttacking && EquippedWeaponType != EPlayerWeapon.NONE)
-		{
-			IsAttacking = true;
-			AttackIndex = 0;
-			PlayAnimation(thisState.Animation[EquippedWeaponType].normal[0].name, 0, 0);
-		}
-
-
-
-		if (IsAttacking)
-		{
-			PlayerAnimation currentAnimation = GetAnimation(AS.Animation);
-			if (Input.Attack.Pressed && currentAnimation.canPlayNext
-				&& currentAnimation.repeatFrame > 0
-				&& AS.Frame >= currentAnimation.repeatFrame
-				&& AS.FrameProgress >= currentAnimation.repeatFrameProgess)
-			{
-				AttackIndex = Mathf.Clamp(AttackIndex + 1, 0, 2);
-				PlayAnimation(thisState.Animation[EquippedWeaponType].normal[AttackIndex].name, 0, 0);
-			}
-
-			if (IsAnimationFinished())
-			{
-				thisState.OnAttackAnimationEnd();
-			}
-		}
+		WeaponController.Main.Execute(thisState);
 	}
 }

@@ -49,8 +49,10 @@ public class PlayerDashState : PlayerGroundedState
             }
             else
             {
-                FSM.SetNextState(EPlayerState.WALK);
-                return;
+                if(Player.CanWalkWhenAttacking()){
+                    FSM.SetNextState(EPlayerState.WALK);
+                    return;
+                }                
             }
 
         }
