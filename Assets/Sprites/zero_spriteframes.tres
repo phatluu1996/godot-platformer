@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=204 format=3 uid="uid://cten2hbmv41pd"]
+[gd_resource type="SpriteFrames" load_steps=202 format=3 uid="uid://cten2hbmv41pd"]
 
 [ext_resource type="Texture2D" uid="uid://cuo54obmvo5cc" path="res://Assets/Sprites/zero_basic.png" id="1_yolih"]
 [ext_resource type="Texture2D" uid="uid://bandrutbkqpaf" path="res://Assets/Sprites/zero_saber_0.png" id="2_eta15"]
@@ -695,14 +695,6 @@ region = Rect2(1152, 256, 128, 128)
 atlas = ExtResource("1_yolih")
 region = Rect2(1280, 256, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1e6oc"]
-atlas = ExtResource("2_eta15")
-region = Rect2(0, 640, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qqyca"]
-atlas = ExtResource("2_eta15")
-region = Rect2(128, 640, 128, 128)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_bo8nl"]
 atlas = ExtResource("2_eta15")
 region = Rect2(256, 640, 128, 128)
@@ -836,7 +828,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"air_saber",
-"speed": 18.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1045,7 +1037,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"climb_saber",
-"speed": 18.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1225,7 +1217,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"grip_saber",
-"speed": 18.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1548,10 +1540,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1e6oc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qqyca")
+"texture": SubResource("AtlasTexture_bo8nl")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bo8nl")
@@ -1579,7 +1568,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"wall_saber",
-"speed": 18.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,

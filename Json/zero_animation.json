@@ -13,20 +13,17 @@
           "loopFrame": 0,
           "canPlayNext": true,
           "repeatFrame": 2,
-          "repeatFrameProgress": 0.75,
-          "resumeAnimation": "idle"
+          "repeatFrameProgress": 0.75
         },
         {
           "name": "idle_saber1",
           "loopFrame": 0,
           "canPlayNext": true,
-          "repeatFrame": 2,
-          "resumeAnimation": "idle"
+          "repeatFrame": 2
         },
         {
           "name": "idle_saber2",
-          "loopFrame": 0,
-          "resumeAnimation": "idle"
+          "loopFrame": 0
         }
       ]
     }
@@ -42,20 +39,17 @@
           "loopFrame": 0,
           "canPlayNext": true,
           "repeatFrame": 2,
-          "repeatFrameProgress": 0.75,
-          "resumeAnimation": "idle"
+          "repeatFrameProgress": 0.75
         },
         {
           "name": "idle_saber1",
           "loopFrame": 0,
           "canPlayNext": true,
-          "repeatFrame": 2,
-          "resumeAnimation": "idle"
+          "repeatFrame": 2
         },
         {
           "name": "idle_saber2",
-          "loopFrame": 0,
-          "resumeAnimation": "idle"
+          "loopFrame": 0
         }
       ]
     }
@@ -69,20 +63,17 @@
           "loopFrame": 0,
           "canPlayNext": true,
           "repeatFrame": 2,
-          "repeatFrameProgress": 0.75,
-          "resumeAnimation": "idle"
+          "repeatFrameProgress": 0.75
         },
         {
           "name": "idle_saber1",
           "loopFrame": 0,
           "canPlayNext": true,
-          "repeatFrame": 2,
-          "resumeAnimation": "idle"
+          "repeatFrame": 2
         },
         {
           "name": "idle_saber2",
-          "loopFrame": 0,
-          "resumeAnimation": "idle"
+          "loopFrame": 0
         }
       ]
     }
@@ -110,12 +101,12 @@
         { "name": "dash_end", "loopFrame": 0 }
       ]
     },
-    "SABER": { "normal": [{ "name": "dash_saber", "loopFrame": 0 }] }
+    "SABER": { "normal": [{ "name": "dash_saber", "loopFrame": 0, "resumeIndex" : 2 }] }
   },
   "WALLCLING": {
     "NONE": { "normal": [{ "name": "wallcling", "loopFrame": 2 }] },
     "SABER": {
-      "normal": [{ "name": "wall_saber", "loopFrame": 0 }]
+      "normal": [{ "name": "wall_saber", "loopFrame": 0, "resumeFrame" : 3 }]
     }
   },
   "WALLJUMP": {
@@ -125,7 +116,7 @@
         { "name": "walljump2", "loopFrame": 2 }
       ]
     },
-    "SABER": { "normal": [{ "name": "air_saber", "loopFrame": 0 }] }
+    "SABER": { "normal": [{ "name": "air_saber", "loopFrame": 0, "resumeIndex" : 0, "repeatFrame" : 3 }] }
   },
   "HURT": {
     "NONE": {
@@ -153,7 +144,7 @@
       ]
     },
     "SABER": {
-      "normal": [{ "name": "grip_saber", "loopFrame": 0 }]
+      "normal": [{ "name": "grip_saber", "loopFrame": 0, "resumeFrame" : 4 }]
     }
   }
 }

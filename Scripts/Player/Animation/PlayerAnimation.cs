@@ -11,7 +11,7 @@ public class PlayerAnimation
     public int startFrame = 0;
     public int repeatFrame = 0;
     public float repeatFrameProgess = 0f;    
-    public string resumeAnimation;
+    public int resumeIndex = 0;
     public int resumeFrame = 0;
     public bool canPlayNext = false;
     public int transitedFrame = 0;

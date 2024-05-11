@@ -24,7 +24,7 @@ public class PlayerGrippingState : PlayerState
     {
         base.Update();
         Input.Listen();
-        if(Input.xPAxis != 0 && Input.xPAxis != Player.Facing){
+        if(Input.xPAxis != 0 && Input.xPAxis != Player.Facing && !Player.IsAttacking){
             Player.PlayAnimation(Animation[EPlayerWeapon.NONE].normal[1].name);
         }
 

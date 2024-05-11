@@ -79,6 +79,7 @@ public partial class Player : CharacterBody2D, IDamageable
 		WeaponController.AddWeapon(new PlayerSaberWeapon(EPlayerWeapon.SABER, this, WeaponController));	
 		WeaponController.AddWeapon(new PlayerBusterWeapon(EPlayerWeapon.BUSTER, this, WeaponController));	
 		WeaponController.Init(EPlayerWeapon.SABER, EPlayerWeapon.BUSTER);
+		
 
 		SetupAnimation();
 		FSM = new PlayerStateMachine(this);
@@ -97,6 +98,7 @@ public partial class Player : CharacterBody2D, IDamageable
 		FSM.AddState(EPlayerState.GRIP, new PlayerGrippingState(this, FSM, AnimationController.GetState(EPlayerState.GRIP)));
 		FSM.Start(EPlayerState.IDLE);
 
+		PlayerStateTransitionInitializer.LoadStateTransitions(FSM);
 		
 
 	}
@@ -191,7 +193,6 @@ public partial class Player : CharacterBody2D, IDamageable
 
 	public virtual void LogicUpdate(PlayerState thisState)
 	{
-
 		WeaponController.Main.Execute(thisState);
 	}
 }

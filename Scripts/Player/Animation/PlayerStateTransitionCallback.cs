@@ -1,16 +1,25 @@
 using System;
 
 
-public class PlayerStateTransitionCallback : BaseStateTransitionCallback<EPlayerState>
+public class PlayerStateTransitionCallback
 {
-    public Player Player;
-    public PlayerStateTransitionCallback(Player player, EPlayerState from, EPlayerState to, Action<BaseState<EPlayerState>, BaseState<EPlayerState>> callback) : base(player.FSM, from, to, callback)
+    public (EPlayerState, EPlayerState, EPlayerWeapon) TransitionKey;
+    public PlayerStateMachine FSM;
+    protected PlayerState FromState;
+    protected PlayerState ToState;
+    protected Action<PlayerState, PlayerState> DoTransition;
+
+    public PlayerStateTransitionCallback(PlayerStateMachine fsm, EPlayerState from, EPlayerState to, EPlayerWeapon weaponType, Action<PlayerState, PlayerState> callback)
     {
-        Player = player;
+        FSM = fsm;
+        TransitionKey = (from, to, weaponType);
+        FromState = FSM.FindState(from);
+        ToState = FSM.FindState(to);
+        DoTransition = callback;
     }
 
-    public override void Execute()
-    {
-        base.Execute();
+    public void Execute(){
+        DoTransition?.Invoke(FromState, ToState);
     }
 }
+

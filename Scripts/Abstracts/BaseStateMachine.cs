@@ -5,7 +5,7 @@ using Godot;
 public abstract class BaseStateMachine<EnumState> where EnumState : Enum
 {
     protected Dictionary<EnumState, BaseState<EnumState>> States = new Dictionary<EnumState, BaseState<EnumState>>();
-    protected Dictionary<(EnumState, EnumState), BaseStateTransitionCallback<EnumState>> StateTransitions = new Dictionary<(EnumState, EnumState), BaseStateTransitionCallback<EnumState>>();
+    
     public BaseState<EnumState> CurrentState;
     public BaseState<EnumState> LastState;
     public EnumState NextStateKey {get; private set;}  
@@ -36,17 +36,6 @@ public abstract class BaseStateMachine<EnumState> where EnumState : Enum
         States.Add(stateKey, state);
     }
 
-      public virtual BaseState<EnumState> FindState(EnumState ePlayerState){
-        return States[ePlayerState];
-    }
-
-    public void AddStateTransition(BaseStateTransitionCallback<EnumState> transitionCallback){
-        (EnumState, EnumState) key = transitionCallback.TransitionKey;
-        if(!StateTransitions.ContainsKey(key)){            
-            StateTransitions.Add(key, transitionCallback);
-        }
-    }
-
     public virtual void TransitionToState(EnumState nextStateKey){
         IsStateTransactioning = true;
         LastState = CurrentState;
@@ -57,13 +46,7 @@ public abstract class BaseStateMachine<EnumState> where EnumState : Enum
     }
 
     public virtual void DoStateTransitionBetween(EnumState from, EnumState to){
-        if(!StateTransitions.ContainsKey((from, to))){
-            //Default transition: cancel current and play new
-            DefaultTransition(from, to);
-            GD.Print("Use default transition");
-        }else{
-            StateTransitions[(from, to)]?.Execute();  
-        }        
+           
     }
 
     public virtual void DefaultTransition(EnumState from, EnumState to){

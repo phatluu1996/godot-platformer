@@ -10,14 +10,16 @@ public class PlayerSaberWeapon : PlayerWeapon
     public override void Execute(PlayerState thisState)
     {
         base.Execute(thisState);
-        if (Input.Attack.Pressed && !Player.IsAttacking)
+		
+
+        if (Input.Attack.Pressed && !Player.IsAttacking && CanStartAttack(thisState))
 		{
 			Player.IsAttacking = true;
 			Player.AttackIndex = 0;
 			PlayerAnimation animation = thisState.Animation[WeaponType].normal[0];
+			OnAttackStarted(thisState);
 			Player.PlayAnimation(animation.name, animation.startFrame, 0);
 		}
-
 
 
 		if (Player.IsAttacking)
@@ -34,9 +36,34 @@ public class PlayerSaberWeapon : PlayerWeapon
 
 			if (Player.IsAnimationFinished())
 			{
-
-				Player.PlayAnimation(currentAnimation.resumeAnimation, 0, 0);
+				Reset();			
+				OnAttackFinished(thisState);	
+				Player.PlayAnimation(thisState.Animation[EPlayerWeapon.NONE].normal[currentAnimation.resumeIndex].name, currentAnimation.resumeFrame, 0);
 			}
 		}
     }
+
+	public override bool CanStartAttack(PlayerState thisState){
+		switch (thisState.StateKey)
+		{
+			case EPlayerState.DASH:
+				return (thisState as PlayerDashState).wasAttacked == false;
+
+			default:
+				return true;
+		}
+	}
+
+	public override void OnAttackStarted(PlayerState thisState){
+		switch (thisState.StateKey)
+		{
+			case EPlayerState.DASH:
+				(thisState as PlayerDashState).wasAttacked = true;
+				break;
+		}
+	}
+
+	public override void OnAttackFinished(PlayerState thisState){
+		
+	}
 }

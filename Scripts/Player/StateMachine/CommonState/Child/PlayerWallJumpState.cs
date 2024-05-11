@@ -19,9 +19,11 @@ public class PlayerWallJumpState : PlayerState
     protected override void Update()
     {
         base.Update();
-        float movingSpeed = Player.OnMomentum ? Constants.MOMENTUM_SPEED : Constants.WALK_SPEED;
-        Player.GravityForceApply();
         Timer += Player.GetProcessDeltaTime();
+        Input.Listen();
+
+        float movingSpeed = Player.OnMomentum ? Constants.MOMENTUM_SPEED : Constants.WALK_SPEED;
+        Player.GravityForceApply();        
         if (Timer <= 0.18f)
         {
             Player.velocity.X = -Player.Facing * movingSpeed;
@@ -32,7 +34,6 @@ public class PlayerWallJumpState : PlayerState
         }
         else
         {
-            Input.Listen();
             if (Input.xHAxis != 0)
             {
                 Player.Facing = Input.xHAxis;
@@ -52,7 +53,9 @@ public class PlayerWallJumpState : PlayerState
             {
                 FSM.SetNextState(EPlayerState.CLIMB);
             }
-        }else if(Player.CanGrip && Input.Up.Held){
+        }
+        else if (Player.CanGrip && Input.Up.Held)
+        {
             FSM.SetNextState(EPlayerState.GRIP);
         }
     }
@@ -72,9 +75,8 @@ public class PlayerWallJumpState : PlayerState
         base.OnAnimationFinished(animationName);
     }
 
-    // public override string TransitedAnimation()
-    // {
-    //     int index = Player.OnMomentum ? 1 : 0;
-    //     return Animation[EPlayerWeapon.NONE].normal[index].name;
-    // }
+    public override int TransitedAnimationIndex()
+    {
+        return Player.OnMomentum ? 1 : 0;
+    }
 }

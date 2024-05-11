@@ -4,6 +4,7 @@ using Godot;
 
 public class PlayerDashState : PlayerGroundedState
 {
+    public bool wasAttacked;
     public bool initDash;
     public bool endDashSoon;
 
@@ -15,6 +16,7 @@ public class PlayerDashState : PlayerGroundedState
     {
         base.Enter();
         initDash = true;
+        wasAttacked = false;
         endDashSoon = false;
         Player.velocity.X = Player.Facing * Constants.PREDASH_SPEED;
         Player.CollisionBox.Size = Constants.DASH_BOX_SIZE;

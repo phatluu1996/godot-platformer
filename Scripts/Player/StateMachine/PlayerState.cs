@@ -22,7 +22,7 @@ public class PlayerState : BaseState<EPlayerState>
 
     public override void Enter()
     {
-        Timer = 0;     
+        Timer = 0;             
         FSM.DoStateTransitionBetween(FSM.LastState.StateKey, StateKey);   
     }
 
@@ -66,5 +66,9 @@ public class PlayerState : BaseState<EPlayerState>
     public override void OnAnimationLooped(string animationName)
     {
 
+    }
+
+    public virtual int TransitedAnimationIndex(){
+        return 0;
     }
 }

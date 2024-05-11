@@ -22,4 +22,16 @@ public class PlayerWeapon
         Player.IsAttacking = false;
         Player.AttackIndex = 0;
     }
+
+    public virtual bool CanStartAttack(PlayerState thisState){
+        return true;
+	}
+
+    public virtual void OnAttackStarted(PlayerState thisState){
+
+	}
+
+	public virtual void OnAttackFinished(PlayerState thisState){
+
+	}
 }
