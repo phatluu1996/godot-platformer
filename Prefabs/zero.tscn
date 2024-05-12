@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://cw0358iq6ednr"]
+
+[ext_resource type="Script" path="res://Scripts/Player/Zero.cs" id="1_ul3at"]
+[ext_resource type="SpriteFrames" uid="uid://cten2hbmv41pd" path="res://Assets/Sprites/zero_spriteframes.tres" id="2_crvpd"]
+[ext_resource type="SpriteFrames" uid="uid://bx7bar2tr31kr" path="res://Assets/Sprites/zero_buster_spriteframes.tres" id="3_2droc"]
+[ext_resource type="Script" path="res://Scripts/Player/PlayerGripArea.cs" id="3_pojkw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qqfjj"]
+size = Vector2(18, 38)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_odfhg"]
+radius = 6.0
+
+[node name="Zero" type="CharacterBody2D" node_paths=PackedStringArray("AS", "CS", "BusterSprite", "GripTrigger")]
+z_index = 10
+collision_mask = 6
+floor_constant_speed = true
+floor_max_angle = 1.39626
+floor_snap_length = 5.0
+script = ExtResource("1_ul3at")
+AS = NodePath("ZeroSprite")
+CS = NodePath("CollisionBox")
+BusterSprite = NodePath("BusterSprite")
+GripTrigger = NodePath("GrippingTrigger")
+
+[node name="ZeroSprite" type="AnimatedSprite2D" parent="."]
+z_index = 1
+position = Vector2(0, -19)
+sprite_frames = ExtResource("2_crvpd")
+animation = &"walk_buster"
+autoplay = "idle"
+frame = 1
+frame_progress = 0.0785033
+offset = Vector2(0, -12)
+
+[node name="BusterSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(15, -23)
+sprite_frames = ExtResource("3_2droc")
+animation = &"shoot"
+frame = 2
+frame_progress = 1.0
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -19)
+shape = SubResource("RectangleShape2D_qqfjj")
+
+[node name="GrippingTrigger" type="Area2D" parent="." node_paths=PackedStringArray("Player")]
+position = Vector2(0, -51)
+collision_layer = 16
+collision_mask = 8
+script = ExtResource("3_pojkw")
+Player = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrippingTrigger"]
+shape = SubResource("CircleShape2D_odfhg")
+debug_color = Color(0.245647, 0.636002, 1.92523e-07, 0.42)

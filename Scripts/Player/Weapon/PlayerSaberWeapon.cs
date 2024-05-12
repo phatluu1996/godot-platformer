@@ -18,27 +18,27 @@ public class PlayerSaberWeapon : PlayerWeapon
 			Player.AttackIndex = 0;
 			PlayerAnimation animation = thisState.Animation[WeaponType].normal[0];
 			OnAttackStarted(thisState);
-			Player.PlayAnimation(animation.name, animation.startFrame, 0);
+			Player.AC.PlayAnimation(animation, animation.startFrame, 0);
 		}
 
 
 		if (Player.IsAttacking)
 		{
-			PlayerAnimation currentAnimation = Player.GetAnimation(Player.AS.Animation);
+			PlayerAnimation currentAnimation = Player.AC.Animation;
 			if (Input.Attack.Pressed && currentAnimation.canPlayNext
 				&& currentAnimation.repeatFrame > 0
 				&& Player.AS.Frame >= currentAnimation.repeatFrame
 				&& Player.AS.FrameProgress >= currentAnimation.repeatFrameProgess)
 			{
 				Player.AttackIndex = Mathf.Clamp(Player.AttackIndex + 1, 0, 2);
-				Player.PlayAnimation(thisState.Animation[WeaponType].normal[Player.AttackIndex].name, 0, 0);
+				Player.AC.PlayAnimation(thisState.Animation[WeaponType].normal[Player.AttackIndex], 0, 0);
 			}
 
-			if (Player.IsAnimationFinished())
+			if (Player.AC.IsAnimationFinished())
 			{
 				Reset();			
 				OnAttackFinished(thisState);	
-				Player.PlayAnimation(thisState.Animation[EPlayerWeapon.NONE].normal[currentAnimation.resumeIndex].name, currentAnimation.resumeFrame, 0);
+				Player.AC.PlayAnimation(thisState.Animation[EPlayerWeapon.NONE].normal[currentAnimation.resumeIndex], currentAnimation.resumeFrame, 0);
 			}
 		}
     }

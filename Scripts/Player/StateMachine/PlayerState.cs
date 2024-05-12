@@ -45,7 +45,8 @@ public class PlayerState : BaseState<EPlayerState>
 
     protected override void PostUpdate()
     {
-        Player.LogicUpdate(this);
+        Player.WeaponController.Main.Execute(this);
+        Player.WeaponController.Sub.Execute(this);
     }
 
     public override void Exit()

@@ -13,32 +13,42 @@ public class PlayerAnimationInitializer
 
         ac.StateAnimations = stateAnimationsCollection;
 
-        Dictionary<string, PlayerAnimation> animationsMap = new Dictionary<string, PlayerAnimation>();
-        foreach (var stateAnimations in stateAnimationsCollection.Values)
+        Dictionary<(EPlayerState, string), PlayerAnimation> animationsMap = new Dictionary<(EPlayerState, string), PlayerAnimation>();
+        foreach (KeyValuePair<EPlayerState, Dictionary<EPlayerWeapon, PlayerAnimationPair>> stateAnimations in stateAnimationsCollection)
         {
-            foreach (var pairAnimation in stateAnimations?.Values)
-            {
-                if (pairAnimation?.normal != null)
+            
+            foreach (KeyValuePair<EPlayerWeapon, PlayerAnimationPair> pairAnimation in stateAnimations.Value)
+            {                
+                if (pairAnimation.Value?.normal != null)
                 {
-                    foreach (var animation in pairAnimation?.normal)
+                    foreach (PlayerAnimation animation in pairAnimation.Value.normal)
                     {
-
-                        if (!animationsMap.ContainsKey(animation.name))
+                        animation.state = stateAnimations.Key;
+                        animation.type = pairAnimation.Key;    
+                        animation.length = ac.AS.SpriteFrames.GetFrameCount(animation.name);   
+                        if (!animationsMap.ContainsKey((stateAnimations.Key, animation.name)))
                         {
-                            animationsMap.Add(animation.name, animation);
+                            animationsMap.Add((stateAnimations.Key, animation.name), animation);
+                        }else{
+                            Debug.Log("Duplicate animation with key:" + (stateAnimations.Key, animation.name));
                         }
 
                     }
                 }
 
 
-                if (pairAnimation?.special != null)
+                if (pairAnimation.Value?.special != null)
                 {
-                    foreach (var animation in pairAnimation?.special)
+                    foreach (PlayerAnimation animation in pairAnimation.Value?.special)
                     {
-                        if (!animationsMap.ContainsKey(animation.name))
+                        animation.state = stateAnimations.Key;
+                        animation.type = pairAnimation.Key;    
+                        animation.length = ac.AS.SpriteFrames.GetFrameCount(animation.name); 
+                        if (!animationsMap.ContainsKey((stateAnimations.Key, animation.name)))
                         {
-                            animationsMap.Add(animation.name, animation);
+                            animationsMap.Add((stateAnimations.Key, animation.name), animation);
+                        }else{
+                            Debug.Log("Duplicate animation with key:" + (stateAnimations.Key, animation.name));
                         }
                     }
                 }
@@ -46,7 +56,10 @@ public class PlayerAnimationInitializer
             }
         }
         ac.AllAnimations = animationsMap;
-
+        foreach (var item in animationsMap)
+        {
+            GD.Print(item.Key.ToString() +"-->"+item.Value.name);
+        }
         // string[] lines = File.ReadAllLines("./Json/test.txt");
         // for (int i = 0; i < lines.Length; i+=4)
         // {

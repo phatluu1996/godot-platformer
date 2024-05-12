@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 
 public class PlayerAirBornState : PlayerState
 {
@@ -18,7 +19,6 @@ public class PlayerAirBornState : PlayerState
         if (Input.xHAxis != 0)
         {
             Player.Facing = Input.xHAxis;
-            Player.AS.FlipH = Player.Facing < 0;
         }
 
         Player.GravityForceApply();

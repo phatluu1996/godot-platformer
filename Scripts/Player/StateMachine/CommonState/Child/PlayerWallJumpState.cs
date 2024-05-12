@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 
 public class PlayerWallJumpState : PlayerState
 {
@@ -23,7 +24,7 @@ public class PlayerWallJumpState : PlayerState
         Input.Listen();
 
         float movingSpeed = Player.OnMomentum ? Constants.MOMENTUM_SPEED : Constants.WALK_SPEED;
-        Player.GravityForceApply();        
+        Player.GravityForceApply();
         if (Timer <= 0.18f)
         {
             Player.velocity.X = -Player.Facing * movingSpeed;
@@ -37,7 +38,6 @@ public class PlayerWallJumpState : PlayerState
             if (Input.xHAxis != 0)
             {
                 Player.Facing = Input.xHAxis;
-                Player.AS.FlipH = Player.Facing < 0;
             }
             Player.velocity.X = Input.xHAxis * movingSpeed;
         }

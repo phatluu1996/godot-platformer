@@ -20,9 +20,5 @@ public partial class Zero : Player
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-    }
-
-    public override void SetupAnimation(){    
-        base.SetupAnimation();
-	}
+    }    
 }

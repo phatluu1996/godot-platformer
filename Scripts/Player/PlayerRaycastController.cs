@@ -110,13 +110,13 @@ public class PlayerRaycastController
 
     public void CheckHorizontalCollisions()
     {
-        float rayLength = 0.5f + Mathf.Abs(Player.velocity.X / Engine.MaxFps);
+        float rayLength = 5.5f + Mathf.Abs(Player.velocity.X / Engine.MaxFps);
 
         for (int i = 0; i < HorizontalRays.Count; i++)
         {
             RayCast2D ray = HorizontalRays[i];
-            ray.Position = (Player.Facing > 0 ? TR : TL) + Vector2.Down * HorizontalRaySpacing * i;
-            ray.TargetPosition = Player.Facing * rayLength * Vector2.Right;
+            ray.Position =  TR + Vector2.Down * HorizontalRaySpacing * i;
+            ray.TargetPosition = rayLength * Vector2.Right;
             Vector2 collisionNormal = ray.GetCollisionNormal();
             if (ray.IsColliding() && (collisionNormal.X == 1f || collisionNormal.X == -1f))
             {

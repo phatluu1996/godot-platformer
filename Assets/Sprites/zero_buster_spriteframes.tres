@@ -1,0 +1,32 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://bx7bar2tr31kr"]
+
+[ext_resource type="Texture2D" uid="uid://hd6gn6su1ty3" path="res://Assets/Sprites/zero_buster.png" id="1_k56wg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_br4w6"]
+atlas = ExtResource("1_k56wg")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nh2kx"]
+atlas = ExtResource("1_k56wg")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4r8ke"]
+atlas = ExtResource("1_k56wg")
+region = Rect2(320, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_br4w6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nh2kx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4r8ke")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 6.0
+}]

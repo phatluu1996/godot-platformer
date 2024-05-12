@@ -13,12 +13,12 @@ public class PlayerStateMachine : BaseStateMachine<EPlayerState>
     }
 
     public override void DoStateTransitionBetween(EPlayerState from, EPlayerState to){
-        GD.Print(from + " -> " + to);
+        Debug.Log(from + " -> " + to);
         base.DoStateTransitionBetween(from, to);  
         if(!StateTransitions.ContainsKey((from, to, Player.WeaponController.Main.WeaponType)) || !Player.IsAttacking){
             //Default transition: cancel current and play new
             DefaultTransition(from, to);
-            GD.Print("Use default transition");
+            Debug.Log("Use default transition");
         }else{
             StateTransitions[(from, to, Player.WeaponController.Main.WeaponType)]?.Execute();  
         }     
@@ -41,6 +41,6 @@ public class PlayerStateMachine : BaseStateMachine<EPlayerState>
         Player.WeaponController.Main.Reset();
         PlayerState state = States[to] as PlayerState;
         PlayerAnimation animation = state.Animation[EPlayerWeapon.NONE].normal[state.TransitedAnimationIndex()];
-        Player.PlayAnimation(animation.name, animation.transitedFrame, 0);
+        Player.AC.PlayAnimation(animation, animation.transitedFrame, 0);
     }
 }

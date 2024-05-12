@@ -25,7 +25,7 @@ public class PlayerClimbState : PlayerState
         Player.AS.SpeedScale = -Mathf.Sign(Player.velocity.Y);
         if (Input.yPAxis != 0)
         {
-            Player.PlayAnimation(Animation[EPlayerWeapon.NONE].normal[0].name, currentFrame, currentFrameProgress);
+            Player.AC.PlayAnimation(Animation[EPlayerWeapon.NONE].normal[0], currentFrame, currentFrameProgress);
         }
 
         if (!Input.Up.Held && !Input.Down.Held)

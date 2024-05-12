@@ -22,8 +22,7 @@ public class PlayerGroundedState : PlayerState
         Input.Listen();
         if (Input.xHAxis != 0)
         {
-            Player.Facing = Input.xHAxis;
-            Player.AS.FlipH = Player.Facing < 0;
+            Player.Facing = Input.xHAxis;      
         }
 
         Player.GravityForceApply();
