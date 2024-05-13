@@ -12,6 +12,16 @@ public class PlayerStateTransitionInitializer
             //Do nothing
         }));
 
-        
+        fsm.AddStateTransition(new PSTC(fsm, EPlayerState.JUMP, EPlayerState.FALL, EPlayerWeapon.BUSTER, (from, to) => {
+            //Do nothing
+        }));
+
+        fsm.AddStateTransition(new PSTC(fsm, EPlayerState.WALLJUMP, EPlayerState.FALL, EPlayerWeapon.BUSTER, (from, to) => {
+            //Do nothing
+        }));     
+
+        fsm.AddStateTransition(new PSTC(fsm, EPlayerState.FALL, EPlayerState.LAND, EPlayerWeapon.BUSTER, (from, to) => {
+            // fsm.Player.AC.PlayAnimation(to.Animation[EPlayerWeapon.BUSTER].normal[0], )
+        }));     
     }
 }

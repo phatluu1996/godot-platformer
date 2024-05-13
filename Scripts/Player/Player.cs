@@ -91,6 +91,7 @@ public partial class Player : CharacterBody2D, IDamageable
 		WeaponController.AddWeapon(new PlayerSaberWeapon(EPlayerWeapon.SABER, this, WeaponController));
 		WeaponController.AddWeapon(new PlayerBusterWeapon(EPlayerWeapon.BUSTER, this, WeaponController));
 		//Select main and sub weapon
+		// WeaponController.Init(EPlayerWeapon.BUSTER, EPlayerWeapon.SABER);
 		WeaponController.Init(EPlayerWeapon.SABER, EPlayerWeapon.BUSTER);
 
 		//Load animation from json
@@ -115,14 +116,10 @@ public partial class Player : CharacterBody2D, IDamageable
 		FSM.AddState(EPlayerState.GRIP, new PlayerGrippingState(this, FSM, AC.GetState(EPlayerState.GRIP)));
 
 		//Add animation transition event
-		PlayerStateTransitionInitializer.AddStateTransitions(FSM);
+		// PlayerStateTransitionInitializer.AddStateTransitions(FSM);
 
 		//Start default state
 		FSM.Start(EPlayerState.IDLE);
-
-
-		//Hide buster sprite
-		BusterSprite.Hide();
 	}
 
 

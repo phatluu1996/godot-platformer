@@ -26,6 +26,13 @@
           "loopFrame": 0
         }
       ]
+    },
+    "BUSTER": {
+      "normal": [
+        {
+          "name": "idle_buster"
+        }
+      ]
     }
   },
   "WALK": {
@@ -52,6 +59,16 @@
           "loopFrame": 0
         }
       ]
+    },
+    "BUSTER": {
+      "normal": [
+        {
+          "name": "walk_buster",
+          "skipReplay" : true,
+          "resumeFrame" : -1,
+          "startFrame" : -1            
+        }
+      ]
     }
   },
   "LAND": {
@@ -76,11 +93,30 @@
           "loopFrame": 0
         }
       ]
+    },
+    "BUSTER": {
+      "normal": [
+        {
+          "name": "land_buster",
+          "skipReplay" : true,
+          "resumeFrame" : -1,
+          "startFrame" : -1  
+        }
+      ]
     }
   },
   "JUMP": {
     "NONE": { "normal": [{ "name": "jump", "loopFrame": 2 }] },
-    "SABER": { "normal": [{ "name": "air_saber", "loopFrame": 0 }] }
+    "SABER": { "normal": [{ "name": "air_saber", "loopFrame": 0 }] },
+    "BUSTER": {
+      "normal": [
+        {
+          "name": "air_buster",
+          "skipReplay" : true,
+          "resumeFrame" : -1          
+        }
+      ]
+    }
   },
   "FALL": {
     "NONE": { "normal": [{ "name": "fall", "loopFrame": 2 }] },
@@ -91,22 +127,60 @@
           "loopFrame": 0
         }
       ]
+    },
+    "BUSTER": {
+      "normal": [
+        {
+          "name": "air_buster",
+          "skipReplay" : true,
+          "resumeFrame" : -1
+        }
+      ]
     }
   },
   "DASH": {
     "NONE": {
       "normal": [
-        { "name": "dash_init", "loopFrame": 0 },
-        { "name": "dash", "loopFrame": 0 },
+        { "name": "dash", "loopFrame": 1 },
         { "name": "dash_end", "loopFrame": 0 }
       ]
     },
-    "SABER": { "normal": [{ "name": "dash_saber", "loopFrame": 0, "resumeIndex" : 2 }] }
+    "SABER": {
+      "normal": [{ "name": "dash_saber", "loopFrame": 0, "resumeIndex": 1 }]
+    },
+    "BUSTER": {
+      "normal": [
+        {
+          "name": "dash_buster",
+          "loopFrame": 1,
+          "resumeIndex": 0,
+          "resumeFrame": -1,
+          "skipReplay" : true,
+          "startFrame" : -1
+        },
+        {
+          "name": "dash_end_buster",
+          "resumeIndex": 1,
+          "resumeFrame": -1,
+          "skipReplay" : true,
+          "startFrame" : -1
+        }
+      ]
+    }
   },
   "WALLCLING": {
     "NONE": { "normal": [{ "name": "wallcling", "loopFrame": 2 }] },
     "SABER": {
-      "normal": [{ "name": "wall_saber", "loopFrame": 0, "resumeFrame" : 3 }]
+      "normal": [{ "name": "wall_saber", "loopFrame": 0, "resumeFrame": 3 }]
+    },
+    "BUSTER": {
+      "normal": [
+        {
+          "name": "wall_buster",
+          "skipReplay" : true,
+          "resumeFrame" : 2
+        }
+      ]
     }
   },
   "WALLJUMP": {
@@ -116,7 +190,25 @@
         { "name": "walljump2", "loopFrame": 2 }
       ]
     },
-    "SABER": { "normal": [{ "name": "air_saber", "loopFrame": 0, "resumeIndex" : 0, "repeatFrame" : 3 }] }
+    "SABER": {
+      "normal": [
+        {
+          "name": "air_saber",
+          "loopFrame": 0,
+          "resumeIndex": 0,
+          "repeatFrame": 3
+        }
+      ]
+    },
+    "BUSTER": {
+      "normal": [
+        {
+          "name": "air_buster",
+          "skipReplay" : true,
+          "resumeFrame" : -1
+        }
+      ]
+    }
   },
   "HURT": {
     "NONE": {
@@ -128,7 +220,15 @@
   },
   "CLIMB": {
     "NONE": { "normal": [{ "name": "climb", "loopFrame": 0 }] },
-    "SABER": { "normal": [{ "name": "climb_saber", "loopFrame": 0 }] }
+    "SABER": { "normal": [{ "name": "climb_saber", "loopFrame": 0 }] },
+    "BUSTER": {
+      "normal": [
+        {
+          "name": "climb_buster",
+          "startFrame" : -1  
+        }
+      ]
+    }
   },
   "CLIMBDOWN": {
     "NONE": { "normal": [{ "name": "climbdown", "loopFrame": 0 }] }
@@ -144,7 +244,16 @@
       ]
     },
     "SABER": {
-      "normal": [{ "name": "grip_saber", "loopFrame": 0, "resumeFrame" : 4 }]
+      "normal": [{ "name": "grip_saber", "loopFrame": 0, "resumeFrame": 4 }]
+    },
+    "BUSTER": {
+      "normal": [
+        {
+          "name": "grip_buster",
+          "resumeFrame" : 4,
+          "startFrame" : -1           
+        }
+      ]
     }
   }
 }

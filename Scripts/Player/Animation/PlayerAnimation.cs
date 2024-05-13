@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Godot;
 
 [Serializable]
 public class PlayerAnimation
@@ -14,6 +15,7 @@ public class PlayerAnimation
     public float repeatFrameProgess = 0f;
     public int resumeIndex = 0;
     public int resumeFrame = 0;
+    public bool skipReplay = false;
     public bool canPlayNext = false;
     public int transitedFrame = 0;
     public Dictionary<(EPlayerState, int), Action<Player, PlayerState>> Events = new Dictionary<(EPlayerState, int), Action<Player, PlayerState>>();

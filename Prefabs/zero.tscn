@@ -24,17 +24,16 @@ BusterSprite = NodePath("BusterSprite")
 GripTrigger = NodePath("GrippingTrigger")
 
 [node name="ZeroSprite" type="AnimatedSprite2D" parent="."]
-z_index = 1
 position = Vector2(0, -19)
 sprite_frames = ExtResource("2_crvpd")
-animation = &"walk_buster"
+animation = &"wallcling"
 autoplay = "idle"
-frame = 1
-frame_progress = 0.0785033
+frame_progress = 0.739456
 offset = Vector2(0, -12)
 
 [node name="BusterSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(15, -23)
+visible = false
+position = Vector2(16, -24)
 sprite_frames = ExtResource("3_2droc")
 animation = &"shoot"
 frame = 2

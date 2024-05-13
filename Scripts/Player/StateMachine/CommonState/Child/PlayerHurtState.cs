@@ -9,7 +9,8 @@ public class PlayerHurtState : PlayerState
 
     public override void Enter()
     {
-        base.Enter();
+        // base.Enter();
+        FSM.DefaultTransition(StateKey);
         Player.velocity.Y = 0f;
         Player.velocity.X = -Player.Facing * Constants.KNOCKBACK_SPEED;
     }

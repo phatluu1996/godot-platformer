@@ -10,7 +10,6 @@ public class PlayerSaberWeapon : PlayerWeapon
     public override void Execute(PlayerState thisState)
     {
         base.Execute(thisState);
-		
 
         if (Input.Attack.Pressed && !Player.IsAttacking && CanStartAttack(thisState))
 		{
@@ -66,4 +65,16 @@ public class PlayerSaberWeapon : PlayerWeapon
 	public override void OnAttackFinished(PlayerState thisState){
 		
 	}
+
+    public override void AttackTransition(PlayerState from, PlayerState to)
+    {
+        base.AttackTransition(from, to);
+		PlayerAnimationPair animation = to.Animation[EPlayerWeapon.BUSTER];
+		if(IsTransitionOf((from, to), (EPlayerState.JUMP, EPlayerState.FALL)) 
+		|| IsTransitionOf((from, to), (EPlayerState.WALLJUMP, EPlayerState.FALL))){
+			//Skip
+		}else{
+			Player.FSM.DefaultTransition(to.StateKey);
+		}
+    }
 }

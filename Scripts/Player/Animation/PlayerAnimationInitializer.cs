@@ -56,10 +56,6 @@ public class PlayerAnimationInitializer
             }
         }
         ac.AllAnimations = animationsMap;
-        foreach (var item in animationsMap)
-        {
-            GD.Print(item.Key.ToString() +"-->"+item.Value.name);
-        }
         // string[] lines = File.ReadAllLines("./Json/test.txt");
         // for (int i = 0; i < lines.Length; i+=4)
         // {

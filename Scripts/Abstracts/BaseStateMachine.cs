@@ -49,7 +49,7 @@ public abstract class BaseStateMachine<EnumState> where EnumState : Enum
            
     }
 
-    public virtual void DefaultTransition(EnumState from, EnumState to){
+    public virtual void DefaultTransition(EPlayerState stateKey){
 
     }
 

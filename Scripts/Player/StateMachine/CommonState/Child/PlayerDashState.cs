@@ -5,7 +5,6 @@ using Godot;
 public class PlayerDashState : PlayerGroundedState
 {
     public bool wasAttacked;
-    public bool initDash;
     public bool endDashSoon;
 
     public PlayerDashState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, PlayerAnimationPair> animation) : base(player, fsm, animation)
@@ -15,7 +14,6 @@ public class PlayerDashState : PlayerGroundedState
     public override void Enter()
     {
         base.Enter();
-        initDash = true;
         wasAttacked = false;
         endDashSoon = false;
         Player.velocity.X = Player.Facing * Constants.PREDASH_SPEED;
@@ -33,28 +31,45 @@ public class PlayerDashState : PlayerGroundedState
         {
             if (Input.xHAxis == 0)
             {
-                if (Player.AC.Animation.name == Animation[EPlayerWeapon.NONE].normal[0].name || Player.AC.Animation.name == Animation[EPlayerWeapon.NONE].normal[1].name)
+                if (Player.AC.Animation.name == Animation[EPlayerWeapon.NONE].normal[0].name)
                 {
                     if (Timer < Constants.DASH_TIME)
                     {
                         endDashSoon = true;
                         Timer = Constants.DASH_TIME;
                     }
-                    Player.AC.PlayAnimation(Animation[EPlayerWeapon.NONE].normal[2]);
+                    Player.AC.PlayAnimation(Animation[EPlayerWeapon.NONE].normal[1]);
+                }else if(Player.AC.Animation.name == Animation[EPlayerWeapon.BUSTER].normal[0].name){
+                    if (Timer < Constants.DASH_TIME)
+                    {
+                        endDashSoon = true;
+                        Timer = Constants.DASH_TIME;
+                    }
+                    Player.AC.PlayAnimation(Animation[EPlayerWeapon.BUSTER].normal[1]);
                 }
-                float endDashSpeed = Constants.ENDDASH_SPEED;
-                if (endDashSoon)
+
+
+                if (Player.IsAttacking && Player.WeaponController.Main.WeaponType == EPlayerWeapon.SABER)
                 {
-                    endDashSpeed = Constants.ENDDASH_SPEED / 3;
+                    Player.velocity.X = Player.Facing * Constants.DASH_SPEED;
                 }
-                Player.velocity.X = Player.Facing * endDashSpeed;
+                else
+                {
+                    float endDashSpeed = Constants.ENDDASH_SPEED;
+                    if (endDashSoon)
+                    {
+                        endDashSpeed = Constants.ENDDASH_SPEED / 3;
+                    }
+                    Player.velocity.X = Player.Facing * endDashSpeed;
+                }
             }
             else
             {
-                if(Player.CanWalkWhenAttacking()){
+                if (Player.CanWalkWhenAttacking())
+                {
                     FSM.SetNextState(EPlayerState.WALK);
                     return;
-                }                
+                }
             }
 
         }
@@ -88,7 +103,6 @@ public class PlayerDashState : PlayerGroundedState
     public override void Exit()
     {
         base.Exit();
-        initDash = false;
         Player.CollisionBox.Size = Constants.STAND_BOX_SIZE;
         Player.CS.Position = Constants.STAND_BOX_OFFSET;
     }
@@ -101,12 +115,13 @@ public class PlayerDashState : PlayerGroundedState
     public override void OnAnimationFinished(string animationName)
     {
         base.OnAnimationFinished(animationName);
-        if (animationName == Animation[EPlayerWeapon.NONE].normal[0].name)
-        {
-            initDash = false;
-            Player.AC.PlayAnimation(Animation[EPlayerWeapon.NONE].normal[1]);
-        }
-        else if (animationName == Animation[EPlayerWeapon.NONE].normal[2].name)
+        // if (animationName == Animation[EPlayerWeapon.NONE].normal[0].name)
+        // {
+        //     initDash = false;
+        //     Player.AC.PlayAnimation(Animation[EPlayerWeapon.NONE].normal[1]);
+        // }
+        // else 
+        if (animationName == Animation[EPlayerWeapon.NONE].normal[1].name)
         {
             FSM.SetNextState(Input.xHAxis != 0 ? EPlayerState.WALK : EPlayerState.IDLE);
         }

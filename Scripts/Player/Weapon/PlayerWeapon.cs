@@ -1,5 +1,8 @@
+using System;
+
 public class PlayerWeapon
 {
+    public double Timer;
     PlayerWeaponController WeaponController;
     public EPlayerWeapon WeaponType;
     public Player Player;
@@ -34,4 +37,13 @@ public class PlayerWeapon
 	public virtual void OnAttackFinished(PlayerState thisState){
 
 	}
+
+    public virtual void AttackTransition(PlayerState from, PlayerState to)
+    {
+        
+    }
+
+    public bool IsTransitionOf((PlayerState, PlayerState) states, (EPlayerState, EPlayerState) stateTypes){
+        return states.Item1.StateKey == stateTypes.Item1 && states.Item2.StateKey == stateTypes.Item2;
+    }
 }

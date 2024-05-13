@@ -11,7 +11,8 @@ public class PlayerClimbDownState : PlayerState
 
     public override void Enter()
     {
-        base.Enter();
+        // base.Enter();
+        FSM.DefaultTransition(StateKey);
         Player.velocity = Vector2.Zero;
         Player.x = Player.Ladder.Position.X;
     }
