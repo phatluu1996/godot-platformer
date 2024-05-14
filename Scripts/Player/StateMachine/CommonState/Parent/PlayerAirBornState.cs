@@ -15,7 +15,7 @@ public class PlayerAirBornState : PlayerState
     protected override void Update()
     {
         base.Update();
-        Input.Listen();
+        // Input.Listen();
         if (Input.xHAxis != 0)
         {
             Player.Facing = Input.xHAxis;

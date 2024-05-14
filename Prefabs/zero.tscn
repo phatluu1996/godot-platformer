@@ -26,9 +26,9 @@ GripTrigger = NodePath("GrippingTrigger")
 [node name="ZeroSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -19)
 sprite_frames = ExtResource("2_crvpd")
-animation = &"wallcling"
+animation = &"fall"
 autoplay = "idle"
-frame_progress = 0.739456
+frame = 1
 offset = Vector2(0, -12)
 
 [node name="BusterSprite" type="AnimatedSprite2D" parent="."]

@@ -11,6 +11,7 @@ public class PlayerState : BaseState<EPlayerState>
     public InputSystem Input;
     public Dictionary<EPlayerWeapon, PlayerAnimationPair> Animation;
     public double Timer;
+    public bool skipAnimationTransition;
 
     public PlayerState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, PlayerAnimationPair> animation)
     {
@@ -22,8 +23,11 @@ public class PlayerState : BaseState<EPlayerState>
 
     public override void Enter()
     {
-        Timer = 0;             
-        FSM.DoStateTransitionBetween(FSM.LastState.StateKey, StateKey);   
+        Timer = 0;
+        if (!skipAnimationTransition)
+        {
+            FSM.DoStateTransitionBetween(FSM.LastState.StateKey, StateKey);
+        }
     }
 
     public override void Excute()
@@ -35,7 +39,7 @@ public class PlayerState : BaseState<EPlayerState>
 
     protected override void PreUpdate()
     {
-
+        Player.WeaponController.Main.Execute(this);
     }
 
     protected override void Update()
@@ -45,7 +49,7 @@ public class PlayerState : BaseState<EPlayerState>
 
     protected override void PostUpdate()
     {
-        Player.WeaponController.Main.Execute(this);
+
         // Player.WeaponController.Sub.Execute(this);
     }
 
@@ -63,13 +67,14 @@ public class PlayerState : BaseState<EPlayerState>
     {
 
     }
-    
+
     public override void OnAnimationLooped(string animationName)
     {
 
     }
 
-    public virtual int TransitedAnimationIndex(){
+    public virtual int TransitedAnimationIndex()
+    {
         return 0;
     }
 }

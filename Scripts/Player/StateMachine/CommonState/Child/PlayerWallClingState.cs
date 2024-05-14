@@ -15,14 +15,19 @@ public class PlayerWallClingState : PlayerState
     protected override void Update()
     {
         base.Update();
-        Input.Listen();
+        // Input.Listen();
         Player.GravityForceApply(-Constants.MAX_WALL_GRAVITY, Constants.MAX_WALL_GRAVITY);
-        
-        if(Player.IsOnFloor()){
+
+        if (Player.IsOnFloor())
+        {
             FSM.SetNextState(EPlayerState.IDLE);
-        }else if(Input.xHAxis == 0 || Input.xHAxis != Player.Facing || (!Player.RaycastController.Collisions.Right && !Player.RaycastController.Collisions.Left)){
+        }
+        else if (Input.xHAxis == 0 || Input.xHAxis != Player.Facing || (!Player.RaycastController.Collisions.Right && !Player.RaycastController.Collisions.Left))
+        {
             FSM.SetNextState(EPlayerState.FALL);
-        }else if(Input.Jump.Pressed){
+        }
+        else if (Input.Jump.Pressed)
+        {
             Player.OnMomentum = Input.Dash.Held;
             FSM.SetNextState(EPlayerState.WALLJUMP);
         }

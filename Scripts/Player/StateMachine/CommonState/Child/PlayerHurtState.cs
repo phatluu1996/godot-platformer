@@ -5,25 +5,31 @@ public class PlayerHurtState : PlayerState
 {
     public PlayerHurtState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, PlayerAnimationPair> animation) : base(player, fsm, animation)
     {
+        skipAnimationTransition = true;
     }
 
     public override void Enter()
     {
-        // base.Enter();
-        FSM.DefaultTransition(StateKey);
+        base.Enter();
+        Player.AC.TransitAnimationDefault(this);
         Player.velocity.Y = 0f;
         Player.velocity.X = -Player.Facing * Constants.KNOCKBACK_SPEED;
+        Player.OnMomentum = false;
     }
 
     protected override void Update()
     {
         base.Update();
         Player.GravityForceApply();
-        Timer+=Player.GetPhysicsProcessDeltaTime();
-        if(Timer > Constants.HURT_TIME){
-            if(Player.IsOnFloor()){
+        Timer += Player.GetPhysicsProcessDeltaTime();
+        if (Timer > Constants.HURT_TIME)
+        {
+            if (Player.IsOnFloor())
+            {
                 FSM.SetNextState(EPlayerState.IDLE);
-            }else{
+            }
+            else
+            {
                 FSM.SetNextState(EPlayerState.FALL);
             }
         }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Godot;
 
 public class PlayerGroundedState : PlayerState
-{    
+{
     public PlayerGroundedState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, PlayerAnimationPair> animation) : base(player, fsm, animation)
     {
     }
@@ -19,10 +19,10 @@ public class PlayerGroundedState : PlayerState
     protected override void Update()
     {
         base.Update();
-        Input.Listen();
+        // Input.Listen();
         if (Input.xHAxis != 0)
         {
-            Player.Facing = Input.xHAxis;      
+            Player.Facing = Input.xHAxis;
         }
 
         Player.GravityForceApply();

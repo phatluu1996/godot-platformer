@@ -4,11 +4,21 @@
       "normal": [
         {
           "name": "idle",
-          "loopFrame": 0
+          "loopFrame": 0,
+          "startFrame": 0,
+          "startProgress": 0,
+          "repeat": false,
+          "repeatFrame": 0,
+          "repeapProgress": 0,
+          "replayFrame": 0,
+          "resumeIndex": 0,
+          "resumeFrame": 0,
+          "forward": true,
+          "forwardFrame": 0,
+          "forwardProgress": 0
         },
         {
-          "name": "tired",
-          "loopFrame": 0
+          "name": "tired"
         }
       ]
     },
@@ -16,25 +26,24 @@
       "normal": [
         {
           "name": "idle_saber0",
-          "loopFrame": 0,
-          "canPlayNext": true,
-          "repeatFrame": 2
+          "repeat": true,
+          "repeatFrame": 2,
+          "repeapProgress": 0.75
         },
         {
           "name": "idle_saber1",
-          "loopFrame": 0,
-          "canPlayNext": true,
-          "repeatFrame": 2
+          "repeat": true,
+          "repeatFrame": 3,
+          "repeapProgress": 0.75
         },
         {
           "name": "idle_saber2",
-          "loopFrame": 0,
+          "repeat": true,
           "repeatFrame": 3,
-          "canPlayNext": true
+          "repeapProgress": 0.75
         },
         {
-          "name": "idle_saber3",
-          "loopFrame": 0
+          "name": "idle_saber3"
         }
       ]
     },
@@ -50,8 +59,7 @@
     "NONE": {
       "normal": [
         {
-          "name": "land",
-          "loopFrame": 0
+          "name": "land"
         }
       ]
     },
@@ -59,35 +67,31 @@
       "normal": [
         {
           "name": "idle_saber0",
-          "loopFrame": 0,
-          "canPlayNext": true,
-          "repeatFrame": 2
+          "repeat": true,
+          "repeatFrame": 2,
+          "repeapProgress": 0.75
         },
         {
           "name": "idle_saber1",
-          "loopFrame": 0,
-          "canPlayNext": true,
-          "repeatFrame": 2
+          "repeat": true,
+          "repeatFrame": 3,
+          "repeapProgress": 0.75
         },
         {
           "name": "idle_saber2",
-          "loopFrame": 0,
+          "repeat": true,
           "repeatFrame": 3,
-          "canPlayNext": true
+          "repeapProgress": 0.75
         },
         {
-          "name": "idle_saber3",
-          "loopFrame": 0
+          "name": "idle_saber3"
         }
       ]
     },
     "BUSTER": {
       "normal": [
         {
-          "name": "land_buster",
-          "skipReplay": true,
-          "resumeFrame": -1,
-          "startFrame": -1
+          "name": "land_buster"
         }
       ]
     }
@@ -105,35 +109,31 @@
       "normal": [
         {
           "name": "idle_saber0",
-          "loopFrame": 0,
-          "canPlayNext": true,
-          "repeatFrame": 2
+          "repeat": true,
+          "repeatFrame": 2,
+          "repeapProgress": 0.75
         },
         {
           "name": "idle_saber1",
-          "loopFrame": 0,
-          "canPlayNext": true,
-          "repeatFrame": 2
+          "repeat": true,
+          "repeatFrame": 3,
+          "repeapProgress": 0.75
         },
         {
           "name": "idle_saber2",
-          "loopFrame": 0,
+          "repeat": true,
           "repeatFrame": 3,
-          "canPlayNext": true
+          "repeapProgress": 0.75
         },
         {
-          "name": "idle_saber3",
-          "loopFrame": 0
+          "name": "idle_saber3"
         }
       ]
     },
     "BUSTER": {
       "normal": [
         {
-          "name": "walk_buster",
-          "skipReplay": true,
-          "resumeFrame": -1,
-          "startFrame": -1
+          "name": "walk_buster"
         }
       ]
     }
@@ -150,17 +150,14 @@
     "SABER": {
       "normal": [
         {
-          "name": "air_saber",
-          "loopFrame": 0
+          "name": "air_saber"
         }
       ]
     },
     "BUSTER": {
       "normal": [
         {
-          "name": "air_buster",
-          "skipReplay": true,
-          "resumeFrame": -1
+          "name": "air_buster"
         }
       ]
     }
@@ -177,17 +174,14 @@
     "SABER": {
       "normal": [
         {
-          "name": "air_saber",
-          "loopFrame": 0
+          "name": "air_saber"
         }
       ]
     },
     "BUSTER": {
       "normal": [
         {
-          "name": "air_buster",
-          "skipReplay": true,
-          "resumeFrame": -1
+          "name": "air_buster"
         }
       ]
     }
@@ -200,36 +194,24 @@
           "loopFrame": 1
         },
         {
-          "name": "dash_end",
-          "loopFrame": 0
+          "name": "dash_end"
         }
       ]
     },
     "SABER": {
       "normal": [
         {
-          "name": "dash_saber",
-          "loopFrame": 0,
-          "resumeIndex": 1
+          "name": "dash_saber"
         }
       ]
     },
     "BUSTER": {
       "normal": [
         {
-          "name": "dash_buster",
-          "loopFrame": 1,
-          "resumeIndex": 0,
-          "resumeFrame": -1,
-          "skipReplay": true,
-          "startFrame": -1
+          "name": "dash_buster"
         },
         {
-          "name": "dash_end_buster",
-          "resumeIndex": 1,
-          "resumeFrame": -1,
-          "skipReplay": true,
-          "startFrame": -1
+          "name": "dash_end_buster"
         }
       ]
     }
@@ -246,18 +228,14 @@
     "SABER": {
       "normal": [
         {
-          "name": "wall_saber",
-          "loopFrame": 0,
-          "resumeFrame": 3
+          "name": "wall_saber"
         }
       ]
     },
     "BUSTER": {
       "normal": [
         {
-          "name": "wall_buster",
-          "skipReplay": true,
-          "resumeFrame": 2
+          "name": "wall_buster"
         }
       ]
     }
@@ -278,19 +256,14 @@
     "SABER": {
       "normal": [
         {
-          "name": "air_saber",
-          "loopFrame": 0,
-          "resumeIndex": 0,
-          "repeatFrame": 3
+          "name": "air_saber"
         }
       ]
     },
     "BUSTER": {
       "normal": [
         {
-          "name": "air_buster",
-          "skipReplay": true,
-          "resumeFrame": -1
+          "name": "air_buster"
         }
       ]
     }
@@ -299,12 +272,10 @@
     "NONE": {
       "normal": [
         {
-          "name": "hurt1",
-          "loopFrame": 0
+          "name": "hurt1"
         },
         {
-          "name": "hurt2",
-          "loopFrame": 0
+          "name": "hurt2"
         }
       ]
     }
@@ -313,24 +284,21 @@
     "NONE": {
       "normal": [
         {
-          "name": "climb",
-          "loopFrame": 0
+          "name": "climb"
         }
       ]
     },
     "SABER": {
       "normal": [
         {
-          "name": "climb_saber",
-          "loopFrame": 0
+          "name": "climb_saber"
         }
       ]
     },
     "BUSTER": {
       "normal": [
         {
-          "name": "climb_buster",
-          "startFrame": -1
+          "name": "climb_buster"
         }
       ]
     }
@@ -339,8 +307,7 @@
     "NONE": {
       "normal": [
         {
-          "name": "climbdown",
-          "loopFrame": 0
+          "name": "climbdown"
         }
       ]
     }
@@ -349,8 +316,7 @@
     "NONE": {
       "normal": [
         {
-          "name": "climbup",
-          "loopFrame": 0
+          "name": "climbup"
         }
       ]
     }
@@ -359,30 +325,24 @@
     "NONE": {
       "normal": [
         {
-          "name": "grip",
-          "loopFrame": 0
+          "name": "grip"
         },
         {
-          "name": "gripturn",
-          "loopFrame": 0
+          "name": "gripturn"
         }
       ]
     },
     "SABER": {
       "normal": [
         {
-          "name": "grip_saber",
-          "loopFrame": 0,
-          "resumeFrame": 4
+          "name": "grip_saber"
         }
       ]
     },
     "BUSTER": {
       "normal": [
         {
-          "name": "grip_buster",
-          "resumeFrame": 4,
-          "startFrame": 0
+          "name": "grip_buster"
         }
       ]
     }

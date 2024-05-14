@@ -15,9 +15,11 @@ public partial class Player : CharacterBody2D, IDamageable
 	public CollisionShape2D CS;
 	[Export]
 	public AnimatedSprite2D BusterSprite;
-	public float Facing {
+	public float Facing
+	{
 		get => Transform.X.X;
-		set{
+		set
+		{
 			Transform2D transform = Transform;
 			transform.X.X = value;
 			Transform = transform;
@@ -64,7 +66,7 @@ public partial class Player : CharacterBody2D, IDamageable
 	{
 		Facing *= -1f;
 	}
-	
+
 
 	public override void _Ready()
 	{
@@ -86,7 +88,7 @@ public partial class Player : CharacterBody2D, IDamageable
 
 		//Init weapon controller
 		WeaponController = new PlayerWeaponController(this);
-					
+
 		//Setting up weapon
 		WeaponController.AddWeapon(new PlayerSaberWeapon(EPlayerWeapon.SABER, this, WeaponController));
 		WeaponController.AddWeapon(new PlayerBusterWeapon(EPlayerWeapon.BUSTER, this, WeaponController));
@@ -96,9 +98,6 @@ public partial class Player : CharacterBody2D, IDamageable
 
 		//Load animation from json
 		PlayerAnimationInitializer.LoadAnimations(AC);
-
-		//Load animation events
-		PlayerAnimationEventInitializer.LoadAnimationEvents(AC);		
 
 		//Setting up state machine
 		FSM.AddState(EPlayerState.IDLE, new PlayerIdleState(this, FSM, AC.GetState(EPlayerState.IDLE)));
@@ -115,9 +114,6 @@ public partial class Player : CharacterBody2D, IDamageable
 		FSM.AddState(EPlayerState.CLIMBUP, new PlayerClimbUpState(this, FSM, AC.GetState(EPlayerState.CLIMBUP)));
 		FSM.AddState(EPlayerState.GRIP, new PlayerGrippingState(this, FSM, AC.GetState(EPlayerState.GRIP)));
 
-		//Add animation transition event
-		// PlayerStateTransitionInitializer.AddStateTransitions(FSM);
-
 		//Start default state
 		FSM.Start(EPlayerState.IDLE);
 	}
@@ -130,6 +126,14 @@ public partial class Player : CharacterBody2D, IDamageable
 		velocity = Velocity;
 
 		RaycastController.Execute();
+
+		Input.Listen();
+
+		//Swap weapon 
+		if (Input.SubAttack.Pressed)
+		{
+			WeaponController.SwapWeapon();
+		}
 
 		FSM.Excute();
 

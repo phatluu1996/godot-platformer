@@ -7,12 +7,13 @@ public class PlayerClimbUpState : PlayerState
 {
     public PlayerClimbUpState(Player player, PlayerStateMachine fsm, Dictionary<EPlayerWeapon, PlayerAnimationPair> animation) : base(player, fsm, animation)
     {
+        skipAnimationTransition = true;
     }
 
     public override void Enter()
     {
-        // base.Enter();
-        FSM.DefaultTransition(StateKey);
+        base.Enter();
+        Player.AC.TransitAnimationDefault(this);
         Player.velocity = Vector2.Zero;
         Player.x = Player.Ladder.Position.X;
         Player.y = Player.Ladder.Position.Y + 38f;

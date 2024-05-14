@@ -21,7 +21,7 @@ public class PlayerWallJumpState : PlayerState
     {
         base.Update();
         Timer += Player.GetProcessDeltaTime();
-        Input.Listen();
+        // Input.Listen();
 
         float movingSpeed = Player.OnMomentum ? Constants.MOMENTUM_SPEED : Constants.WALK_SPEED;
         Player.GravityForceApply();

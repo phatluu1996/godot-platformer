@@ -2,7 +2,7 @@
 using Godot;
 
 public class PlayerBusterWeapon : PlayerWeapon
-{	
+{
 	public AnimatedSprite2D BusterSprite;
 	public PlayerBusterWeapon(EPlayerWeapon type, Player player, PlayerWeaponController weaponController) : base(type, player, weaponController)
 	{
@@ -21,7 +21,7 @@ public class PlayerBusterWeapon : PlayerWeapon
 			Player.IsAttacking = true;
 			PlayerAnimation animation = thisState.Animation[WeaponType].normal[0];
 			OnAttackStarted(thisState);
-			Player.AC.PlayAnimation(animation, animation.startFrame, 0);
+			Player.AC.PlayAnimation(animation);
 		}
 
 
@@ -29,19 +29,19 @@ public class PlayerBusterWeapon : PlayerWeapon
 		{
 			Timer += Player.GetProcessDeltaTime();
 			PlayerAnimation currentAnimation = Player.AC.Animation;
-			if (Input.Attack.Pressed && Timer >= 0.2f)
-			{
-				Timer = 0;
-				if(!currentAnimation.skipReplay && Player.AS.Frame >= currentAnimation.repeatFrame){
-					Player.AC.PlayAnimation(currentAnimation, currentAnimation.repeatFrame);
-				}				
-			}
+			// if (Input.Attack.Pressed && Timer >= 0.2f)
+			// {
+			// 	Timer = 0;
+			// 	if(!currentAnimation.skipReplay && Player.AS.Frame >= currentAnimation.repeatFrame){
+			// 		Player.AC.PlayAnimation(currentAnimation, currentAnimation.repeatFrame);
+			// 	}				
+			// }
 
 			if (Timer >= 0.4f)
 			{
 				Reset();
 				OnAttackFinished(thisState);
-				Player.AC.PlayAnimation(thisState.Animation[EPlayerWeapon.NONE].normal[currentAnimation.resumeIndex], currentAnimation.resumeFrame);
+				// Player.AC.PlayAnimation(thisState.Animation[EPlayerWeapon.NONE].normal[currentAnimation.resumeIndex], currentAnimation.resumeFrame);
 			}
 		}
 	}
@@ -61,23 +61,26 @@ public class PlayerBusterWeapon : PlayerWeapon
 		BusterSprite.Hide();
 	}
 
-    public override void Reset()
-    {
-        base.Reset();
+	public override void Reset()
+	{
+		base.Reset();
 		Timer = 0;
 		BusterSprite.Hide();
-    }
+	}
 
-    public override void AttackTransition(PlayerState from, PlayerState to)
-    {
-        base.AttackTransition(from, to);
+	public override void AttackTransition(PlayerState from, PlayerState to)
+	{
+		base.AttackTransition(from, to);
 		PlayerAnimationPair animation = to.Animation[EPlayerWeapon.BUSTER];
-		if(IsTransitionOf((from, to), (EPlayerState.JUMP, EPlayerState.FALL)) 
-		|| IsTransitionOf((from, to), (EPlayerState.WALLJUMP, EPlayerState.FALL))){
+		if (IsTransitionOf((from, to), (EPlayerState.JUMP, EPlayerState.FALL))
+		|| IsTransitionOf((from, to), (EPlayerState.WALLJUMP, EPlayerState.FALL)))
+		{
 			//Skip
-		}else{
+		}
+		else
+		{
 			Player.AC.PlayAnimation(animation.normal[0]);
 		}
 
-    }
+	}
 }

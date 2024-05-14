@@ -2,12 +2,13 @@ using System.Collections.Generic;
 using Godot;
 using Newtonsoft.Json;
 using System.IO;
+using PAT = PlayerAnimationTransition;
 
 public class PlayerAnimationInitializer
 {
     public static void LoadAnimations(PlayerAnimationController ac)
     {
-        string json = File.ReadAllText("./Json/zero_animation.json");
+        string json = File.ReadAllText("./Json/player_animation_data.json");
 
         Dictionary<EPlayerState, Dictionary<EPlayerWeapon, PlayerAnimationPair>> stateAnimationsCollection = JsonConvert.DeserializeObject<Dictionary<EPlayerState, Dictionary<EPlayerWeapon, PlayerAnimationPair>>>(json);
 
@@ -16,21 +17,23 @@ public class PlayerAnimationInitializer
         Dictionary<(EPlayerState, string), PlayerAnimation> animationsMap = new Dictionary<(EPlayerState, string), PlayerAnimation>();
         foreach (KeyValuePair<EPlayerState, Dictionary<EPlayerWeapon, PlayerAnimationPair>> stateAnimations in stateAnimationsCollection)
         {
-            
+
             foreach (KeyValuePair<EPlayerWeapon, PlayerAnimationPair> pairAnimation in stateAnimations.Value)
-            {                
+            {
                 if (pairAnimation.Value?.normal != null)
                 {
                     foreach (PlayerAnimation animation in pairAnimation.Value.normal)
                     {
                         animation.state = stateAnimations.Key;
-                        animation.type = pairAnimation.Key;    
-                        animation.length = ac.AS.SpriteFrames.GetFrameCount(animation.name);   
+                        animation.type = pairAnimation.Key;
+                        animation.length = ac.AS.SpriteFrames.GetFrameCount(animation.name);
                         if (!animationsMap.ContainsKey((stateAnimations.Key, animation.name)))
                         {
                             animationsMap.Add((stateAnimations.Key, animation.name), animation);
-                        }else{
-                            Debug.Log("Duplicate animation with key:" + (stateAnimations.Key, animation.name));
+                        }
+                        else
+                        {
+                            Debug.Log("[IMPORT ANIMATION] Duplicate animation with key:" + (stateAnimations.Key, animation.name));
                         }
 
                     }
@@ -42,20 +45,34 @@ public class PlayerAnimationInitializer
                     foreach (PlayerAnimation animation in pairAnimation.Value?.special)
                     {
                         animation.state = stateAnimations.Key;
-                        animation.type = pairAnimation.Key;    
-                        animation.length = ac.AS.SpriteFrames.GetFrameCount(animation.name); 
+                        animation.type = pairAnimation.Key;
+                        animation.length = ac.AS.SpriteFrames.GetFrameCount(animation.name);
                         if (!animationsMap.ContainsKey((stateAnimations.Key, animation.name)))
                         {
                             animationsMap.Add((stateAnimations.Key, animation.name), animation);
-                        }else{
-                            Debug.Log("Duplicate animation with key:" + (stateAnimations.Key, animation.name));
+                        }
+                        else
+                        {
+                            Debug.Log("[IMPORT ANIMATION] Duplicate animation with key:" + (stateAnimations.Key, animation.name));
                         }
                     }
                 }
-
             }
         }
         ac.AllAnimations = animationsMap;
+
+        GD.Print(JsonConvert.SerializeObject(stateAnimationsCollection));
+
+
+        //Deserialize transitions
+        // string a = File.ReadAllText("./Json/player_animation_transition.json");
+        // Dictionary<string, PAT> transitions = JsonConvert.DeserializeObject<Dictionary<string, PAT>>(a);
+
+
+
+
+
+
         // string[] lines = File.ReadAllLines("./Json/test.txt");
         // for (int i = 0; i < lines.Length; i+=4)
         // {
@@ -83,5 +100,10 @@ public class PlayerAnimationInitializer
         //     GD.Print("region = Rect2("+numFormat.Join(",")+")");
         //     GD.Print("\n");
         // }
+    }
+
+    private static void addTransition(Dictionary<string, PAT> transitions, (string, string) key)
+    {
+        transitions.Add((key.Item1, key.Item2).ToString(), new PAT(key.Item1, key.Item2));
     }
 }

@@ -5,7 +5,6 @@ using Godot;
 public class PlayerStateMachine : BaseStateMachine<EPlayerState>
 {
     public Player Player;
-    protected Dictionary<(EPlayerState, EPlayerState, EPlayerWeapon), PlayerStateTransitionCallback> StateTransitions = new Dictionary<(EPlayerState, EPlayerState, EPlayerWeapon), PlayerStateTransitionCallback>();
 
     public PlayerStateMachine(Player player)
     {
@@ -14,48 +13,21 @@ public class PlayerStateMachine : BaseStateMachine<EPlayerState>
 
     public override void DoStateTransitionBetween(EPlayerState from, EPlayerState to)
     {
-        Debug.Log(from + " -> " + to);
-        base.DoStateTransitionBetween(from, to);
-        // if (!StateTransitions.ContainsKey((from, to, Player.WeaponController.Main.WeaponType)) || !Player.IsAttacking)
+        Debug.Log("[STATE] " + from + " -> " + to);
+
+        // if (!Player.IsAttacking)
         // {
-        //     //Default transition: cancel current and play new
-        //     DefaultTransition(from, to);
-        //     Debug.Log("Use default transition");
+        //     DefaultTransition(to);
         // }
         // else
         // {
-        //     Player.WeaponController.Main.AttackTransition(from, to);
-        //     StateTransitions[(from, to, Player.WeaponController.Main.WeaponType)]?.Execute();
+        //     Player.WeaponController.Main.AttackTransition(States[from] as PlayerState, States[to] as PlayerState);
         // }
-        if(!Player.IsAttacking){
-            DefaultTransition(to);
-        }else{
-            Player.WeaponController.Main.AttackTransition(States[from] as PlayerState, States[to] as PlayerState);
-        }
-    }
-
-    public void AddStateTransition(PlayerStateTransitionCallback transitionCallback)
-    {
-        (EPlayerState, EPlayerState, EPlayerWeapon) key = transitionCallback.TransitionKey;
-        if (!StateTransitions.ContainsKey(key))
-        {
-            StateTransitions.Add(key, transitionCallback);
-        }
+        Player.AC.TransitAnimation(FindState(from), FindState(to));
     }
 
     public virtual PlayerState FindState(EPlayerState ePlayerState)
     {
         return States[ePlayerState] as PlayerState;
     }
-
-    public override void DefaultTransition(EPlayerState stateKey)
-    {
-        base.DefaultTransition(stateKey);
-        Player.WeaponController.Main.Reset();
-        PlayerState state = States[stateKey] as PlayerState;
-        PlayerAnimation animation = state.Animation[EPlayerWeapon.NONE].normal[state.TransitedAnimationIndex()];
-        Player.AC.PlayAnimation(animation, 0, 0);
-    }
-
-
 }
